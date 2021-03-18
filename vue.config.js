@@ -1,4 +1,5 @@
 const path = require('path')
+const resolve = dir => path.join(__dirname, dir)
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   pluginOptions: {
@@ -20,6 +21,18 @@ module.exports = {
   //     config.resolve.alias
   //         .set('vue$', 'vue/dist/vue.esm.js')
   // },
+  chainWebpack(config) {
+    // console.log(config)
+    //去除默认配置处理的svg文件
+    config.module.rule('svg').exclude.add(resolve('src/icons'))
+    //自定义配置处理svg文件
+    config.module.rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/icons')).end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({ symbolId: 'icon-[name]' })
+  },
   css: {
     loaderOptions: { // 向 CSS 相关的 loader 传递选项
       less: {

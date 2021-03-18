@@ -1,5 +1,6 @@
 import '@/assets/css/init.css' //全局默认css
 import '@/assets/css/scroll.scss' //全局默认css
+import '@/icons/index' //svg图标
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css' //ui库
 import { createApp } from "vue"
@@ -12,10 +13,10 @@ import http from "./http/index" //自定义post和get协议
 import router from "./router" //路由
 import store from "./store" //状态管理
 import utils from './utils/index' //全局工具函数
+import views from './views/index'
 sync(store, router)//route和store结合
-
-
 const app = createApp(App)
+  .use(views, router, store)
   .use(axios)
   .use(store)
   .use(router)
@@ -23,6 +24,7 @@ const app = createApp(App)
   .use(directives)
   .use(utils)
   .use(Antd)
-  
+
+
 app.config.globalProperties.$http = http
 export default app

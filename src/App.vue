@@ -1,12 +1,25 @@
 <template>
   <div class="wrapper">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <router-view />
-    </div>
+    <router-view v-slot="{ Component, route }">
+      <component :is="Component" :route="route" />
+    </router-view>
   </div>
 </template>
+
+<script>
+import Bus from 'utils/bus';
+export default {
+  data() {
+    return {}
+  },
+  mounted() {},
+  methods: {
+    add() {
+      Bus.$emit('llg', 'llgtf')
+    },
+  },
+}
+</script>
 
 <style lang="scss" scoped>
 .wrapper {
@@ -14,6 +27,5 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  text-align: center;
 }
 </style>
