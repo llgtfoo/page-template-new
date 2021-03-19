@@ -1,7 +1,10 @@
 <template>
   <div class="wrapper">
     <router-view v-slot="{ Component, route }">
-      <component :is="Component" :route="route" />
+      <component
+        :is="Component"
+        :route="route"
+      />
     </router-view>
   </div>
 </template>

@@ -15,3 +15,4 @@ declare module 'vue/types/vue' {
     $http: any
   }
 }
+

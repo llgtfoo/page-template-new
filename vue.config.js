@@ -17,11 +17,9 @@ module.exports = {
       },
     },
   },
-  // chainWebpack: (config) => {
-  //     config.resolve.alias
-  //         .set('vue$', 'vue/dist/vue.esm.js')
-  // },
   chainWebpack(config) {
+    config.resolve.alias
+      .set('vue$', 'vue/dist/vue.esm-bundler.js')
     // console.log(config)
     //去除默认配置处理的svg文件
     config.module.rule('svg').exclude.add(resolve('src/icons'))

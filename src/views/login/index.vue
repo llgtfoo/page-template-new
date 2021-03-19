@@ -112,8 +112,8 @@ export default class Login extends Vue {
   }
   //默认值
   formState = {
-    username: '',
-    password: '',
+    username: 'lltfoo',
+    password: '1111',
     checked: false,
   };
   // 用户名自定义规则
@@ -156,7 +156,9 @@ export default class Login extends Vue {
     root
       .validate()
       .then(() => {
-        console.log('values', this.formState)
+        console.log('values', this, this.formState)
+
+        this.$router.push('/home')
       })
       .catch((error: ValidateErrorEntity<FormState>) => {
         console.log('error', error)
