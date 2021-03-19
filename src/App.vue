@@ -7,18 +7,7 @@
 </template>
 
 <script>
-import Bus from 'utils/bus';
-export default {
-  data() {
-    return {}
-  },
-  mounted() {},
-  methods: {
-    add() {
-      Bus.$emit('llg', 'llgtf')
-    },
-  },
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>

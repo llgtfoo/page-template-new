@@ -4,9 +4,9 @@ module.exports = {
     'es2021': true,
   },
   // 'extends': [
-  //     'eslint:recommended',
-  //     'plugin:vue/essential',
-  //     'plugin:@typescript-eslint/recommended',
+  //   'eslint:recommended',
+  //   'plugin:vue/essential',
+  //   'plugin:@typescript-eslint/recommended',
   // ],
   'extends': '@ourea/eslint-config-tq/vue',
   'parserOptions': {
