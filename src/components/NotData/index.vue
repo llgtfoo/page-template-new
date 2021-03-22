@@ -1,6 +1,14 @@
+/**
+ * @name: 无数据页面
+ * @param {type}
+ */
 <template>
   <div class="page page-notData">
-    <img class="img-notData" src="./assets/not-data.png" alt="notData" />
+    <img
+      class="img-notData"
+      src="./assets/not-data.png"
+      alt="notData"
+    />
     <p class="msg-notData">暂无数据</p>
   </div>
 </template>

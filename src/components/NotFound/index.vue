@@ -1,9 +1,19 @@
-/** * @name: 404页面 */
+/**
+ * @name: 404页面
+ * @param {type}
+ */
 <template>
   <div class="page page-404">
-    <img class="img-404" src="./assets/404.png" alt="404" />
+    <img
+      class="img-404"
+      src="./assets/404.png"
+      alt="404"
+    />
     <p class="msg-404">抱歉，你访问的页面不存在！</p>
-    <a-button type="primary" @click="$router.replace('/')">返回首页</a-button>
+    <a-button
+      type="primary"
+      @click="$router.replace('/')"
+    >返回首页</a-button>
   </div>
 </template>
 

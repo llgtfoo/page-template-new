@@ -5,5 +5,6 @@ module.exports = {
   plugins: [
     'import-glob',
     '@babel/plugin-syntax-dynamic-import',
+    '@vue/babel-plugin-jsx'
   ],
 }

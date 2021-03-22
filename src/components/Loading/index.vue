@@ -1,3 +1,7 @@
+/**
+ * @name: 系统loading
+ * @param {type}
+ */
 <template>
   <div :class="styles.loadingWarp">
     <div :class="styles.loading">

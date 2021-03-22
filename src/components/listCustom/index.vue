@@ -1,3 +1,7 @@
+/**
+ * @name: 列表自定义显示项
+ * @param {type}
+ */
 <template>
   <div class="list-custom-list">
     <a-dropdown
@@ -6,26 +10,30 @@
       v-model="visible"
     >
       <div @click="e => e.preventDefault()">
-        <!--<a-icon type="unordered-list" />-->
-        <span style="margin-left:10px;">列表自定义</span>
+        <UnorderedListOutlined />
+        <span style="margin-left:5px;">列表自定义</span>
       </div>
-      <a-menu slot="overlay">
-        <a-checkbox
-          v-for="(v,i) in columns"
-          :key="i"
-          :checked="v.show"
-          @change="e=>onChange(e,v)"
-          :disabled="v.show&&disabled"
-        >
-          {{v.title}}
-        </a-checkbox>
-      </a-menu>
+      <template #overlay>
+        <a-menu>
+          <a-checkbox
+            v-for="(v,i) in columns"
+            :key="i"
+            :checked="v.show"
+            @change="e=>onChange(e,v)"
+            :disabled="v.show&&disabled"
+          >
+            {{v.title}}
+          </a-checkbox>
+        </a-menu>
+      </template>
     </a-dropdown>
   </div>
 </template>
 
-<script>
-export default {
+<script lang='ts'>
+import { defineComponent, ref } from 'vue'
+import { UnorderedListOutlined } from '@ant-design/icons-vue'
+export default defineComponent({
   name: 'ListCustom',
   props: {
     columns: {
@@ -34,27 +42,31 @@ export default {
     }, //列表项
     showNumber: {
       type: Number,
-      default: 0,
+      default: 5,
     }, //最少显示多少项
   },
-  data() {
-    return {
-      visible: false,
-      disabled: false,
-    }
+  components: {
+    UnorderedListOutlined
   },
-  methods: {
-    onChange(e, data) {
-      this.$set(data, 'show', e.target.checked)
-      this.$emit('changeColumns', this.columns)
-      if (this.columns.filter(v => v.show).length <= this.showNumber) {
-        this.disabled = true
+  setup(props, context) {
+    let visible = ref(false)
+    let disabled = ref(false)
+    function onChange(e, data) {
+      data.show = e.target.checked
+      context.emit('changeColumns', props.columns)
+      if (props.columns.filter((v: any) => v.show).length <= props.showNumber) {
+        disabled.value = true
       } else {
-        this.disabled = false
+        disabled.value = false
       }
-    },
-  },
-}
+    }
+    return {
+      visible,
+      disabled,
+      onChange
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

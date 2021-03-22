@@ -1,34 +1,41 @@
 <template>
   <div class="infomation">
     <s-table
+      ref='Stable'
       :columns="columns"
       :list="data"
       :pageSizeOptions="['10', '20', '30', '40']"
       :pageSize="10"
       :currentPage="1"
-      :total="500"
+      :total="50"
       @rowSelection="rowSelection"
       @on-click="clickRow"
       @on-dblclick="dblclickRow"
       @on-page-change="pageChange"
       @on-show-size-change="showSizeChange"
     >
-      <a
-        slot="actions"
-        slot-scope="text"
-      >
+      <template #action='text'>
+        <a-button
+          type="danger"
+          value="small"
+          @click.stop="action(text)"
+        >
+          删除
+        </a-button>
         <a-button
           type="primary"
           value="small"
           @click.stop="action(text)"
-        >新增</a-button>
-      </a>
+        >
+          新增
+        </a-button>
+      </template>
     </s-table>
-    <!--<list-custom
+    <list-custom
       v-if="data.length !== 0"
       :columns="initColumns"
       @changeColumns="getColumns"
-    ></list-custom>-->
+    ></list-custom>
   </div>
 </template>
 
@@ -85,7 +92,7 @@ const initColumns = [
     dataIndex: 'address',
     ellipsis: true,
     key: 'age4',
-    width: 150,
+    // width: 150,
     align: 'center',
     show: true,
   },
@@ -94,7 +101,7 @@ const initColumns = [
     dataIndex: 'address',
     ellipsis: true,
     key: 'age5',
-    // width: 150,
+    // width: '150',
     align: 'center',
     show: true,
   },
@@ -129,15 +136,15 @@ const initColumns = [
     title: 'Action',
     key: 'operation',
     fixed: 'right',
-    width: 150,
-    align: 'center',
+    width: 200,
     show: true,
-    scopedSlots: { customRender: 'actions' },
-  },
+    align: 'center',
+    slots: { customRender: 'action' },
+  }
 ]
 
 const data = []
-for (let i = 0; i < 10; i++) {
+for (let i = 0;i < 10;i++) {
   data.push({
     key: `llgtfoo${i}`,
     name: `Edrward ${i}`,
@@ -154,30 +161,29 @@ export default {
     }
   },
   mounted() {
-    this.columns = this.initColumns
+    this.columns = this.initColumns.filter((e) => e.show);
   },
   methods: {
-    // getColumns(columns) {
-    //   console.log(columns, 'columns')
-    //   this.columns = columns.filter((e) => e.show)
-    // },
+    getColumns(columns) {
+      this.columns = columns.filter((e) => e.show)
+    },
     action(data) {
-      console.log(data, 'action')
+      console.log(data,'action')
     },
     clickRow(data) {
-      console.log(data, 'clickRow')
+      console.log(data,'clickRow')
     },
     dblclickRow(data) {
-      console.log(data, 'dblclickRow')
+      console.log(data,'dblclickRow')
     },
-    rowSelection(indexs, rows) {
-      console.log(indexs, rows)
+    rowSelection(indexs,rows) {
+      console.log(indexs,rows,"rowSelection")
     },
-    pageChange(page, pageSize) {
-      console.log(page, pageSize, 'pageChange')
+    pageChange(page,pageSize) {
+      console.log(page,pageSize,'pageChange')
     },
-    showSizeChange(current, size) {
-      console.log(current, size, 'showSizeChange')
+    showSizeChange(current,size) {
+      console.log(current,size,'showSizeChange')
     },
   },
 }

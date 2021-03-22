@@ -1,16 +1,24 @@
 <template>
-  <div class="wrapper">
-    <router-view v-slot="{ Component, route }">
-      <component
-        :is="Component"
-        :route="route"
-      />
-    </router-view>
-  </div>
+  <a-config-provider :locale="locale">
+    <div class="wrapper">
+      <router-view v-slot="{ Component, route }">
+        <component
+          :is="Component"
+          :route="route"
+        />
+      </router-view>
+    </div>
+  </a-config-provider>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
+export default defineComponent({
+  setup() {
+    return { locale: ref(zhCN) }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

@@ -67,7 +67,7 @@
       </a-layout-header>
       <a-layout-content
         class="layout-content"
-        :style="{margin: '10px',padding: '24px'}"
+        :style="{margin: '10px'}"
       >
         <router-view></router-view>
       </a-layout-content>
@@ -76,9 +76,11 @@
 </template>
 <script lang="ts">
 import menusJson from 'mock/menus/index.json'
-import {createFromIconfontCN,
+import {
+  createFromIconfontCN,
   MenuUnfoldOutlined,
-  MenuFoldOutlined,} from '@ant-design/icons-vue'
+  MenuFoldOutlined,
+} from '@ant-design/icons-vue'
 import { computed, defineComponent, reactive, toRefs, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 //阿里图标库引用
@@ -227,7 +229,7 @@ export default defineComponent({
 }
 </style>
 <style>
-.anticon {
+.menu-layout .anticon {
   margin-right: 6px !important;
   font-size: 20px !important;
   vertical-align: -0.185em !important;

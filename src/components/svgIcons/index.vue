@@ -1,5 +1,12 @@
+/**
+ * @name: 全局svg图标
+ * @param {type}
+ */
 <template>
-  <svg :class="svgClass" v-bind="$attrs">
+  <svg
+    :class="svgClass"
+    v-bind="$attrs"
+  >
     <use :xlink:href="iconName" />
   </svg>
 </template>

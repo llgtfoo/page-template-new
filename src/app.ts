@@ -3,6 +3,7 @@ import '@/assets/css/scroll.scss' //全局默认css
 import '@/icons/index' //svg图标
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css' //ui库
+import * as echarts from 'echarts' //百度echarts图表
 import { createApp } from "vue"
 import { sync } from 'vuex-router-sync'
 import App from "./App.vue" //入口文件
@@ -25,6 +26,8 @@ const app = createApp(App)
   .use(utils)
   .use(Antd)
 
-
+//全局挂载
 app.config.globalProperties.$http = http
+app.config.globalProperties.$echarts = echarts
+
 export default app
