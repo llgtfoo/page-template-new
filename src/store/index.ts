@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import common from './common/index'
- const store=createStore({
+const store = createStore({
   state: {
     email: 'llgtfoo@163.com',
   },
@@ -14,5 +14,5 @@ import common from './common/index'
   },
   plugins: [createPersistedState({ paths: ['common'] })],
 })
-console.log(store,'store')
+console.log(store, 'store')
 export default store
