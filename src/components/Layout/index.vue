@@ -48,7 +48,7 @@
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header>
+      <a-layout-header class='layout-header-nav'>
         <menu-unfold-outlined
           v-if="collapsed"
           :style="{color:'#fff',fontSize:'25px'}"
@@ -63,6 +63,56 @@
         />
         <div class="system-name">
           {{sysName}}
+        </div>
+        <div class="system-time">
+          <date-time v-slot:default='slotProps'>
+            {{slotProps.data.year}}年
+            {{slotProps.data.month}}月
+            {{slotProps.data.day}}日&nbsp;&nbsp;&nbsp;
+            {{slotProps.data.week}}&nbsp;&nbsp;&nbsp;
+            {{slotProps.data.time}}
+          </date-time>
+        </div>
+        <div class="login-userInfo">
+          <a-dropdown
+            placement="bottomRight"
+            :trigger="['click']"
+            v-model="visible"
+          >
+            <a-avatar style="backgroundcolor: #87d068">
+              <template #icon>
+                <UserOutlined />
+              </template>
+            </a-avatar>
+            <template #overlay>
+              <a-menu
+                mode="vertical"
+                @click='infoChange'
+                v-model:selectedKeys="current"
+              >
+
+                <a-menu-item :key='1'>
+                  <UserOutlined />账户设置
+                </a-menu-item>
+                <a-menu-item :key='2'>
+                  <UserOutlined />退出登录
+                </a-menu-item>
+                <a-sub-menu>
+                  <template #title>
+                    <span class="submenu-title-wrapper">
+                      <setting-outlined />
+                      一键换肤
+                    </span>
+                  </template>
+                  <a-menu-item-group>
+                    <a-menu-item key="setting:1">蓝色</a-menu-item>
+                    <a-menu-item key="setting:2">红色</a-menu-item>
+                    <a-menu-item key="setting:3">橙色</a-menu-item>
+                  </a-menu-item-group>
+                </a-sub-menu>
+              </a-menu>
+            </template>
+          </a-dropdown>
         </div>
       </a-layout-header>
       <a-layout-content
@@ -80,6 +130,8 @@ import {
   createFromIconfontCN,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  UserOutlined,
+  SettingOutlined
 } from '@ant-design/icons-vue'
 import { computed, defineComponent, reactive, toRefs, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -125,7 +177,8 @@ const SubMenu = {
 export default defineComponent({
   name: 'Layout',
   components: {
-
+    SettingOutlined,
+    UserOutlined,
     MenuUnfoldOutlined,
     MenuFoldOutlined,
     'sub-menu': SubMenu,
@@ -134,8 +187,10 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const router = useRouter()
-    console.log(route, router, route.fullPath)
+    // console.log(route, router, route.fullPath)
     const state = reactive({
+      current: ['setting:1'],
+      visible: false,
       menusJson, //mock数据
       collapsed: false,
       openKeys: [route.matched[0].path], //根据路由打开菜单
@@ -166,10 +221,16 @@ export default defineComponent({
     const selectedItem = ({ item, key, keyPath }) => {
       router.push(key)
     }
+
+    const infoChange = function (e) {
+      console.log(e, 'e')
+      state.current = [e.key]
+    }
     return {
       sysName,
       onOpenChange,
       selectedItem,
+      infoChange,
       ...toRefs(state),
     }
   },
@@ -203,6 +264,19 @@ export default defineComponent({
     border-radius: 3px;
     letter-spacing: 5px;
     text-align: center;
+  }
+  .system-time {
+    color: #fff;
+    margin-left: auto;
+    margin-right: 100px;
+    font-size: 20px;
+    font-weight: bolder;
+    height: 50px;
+    line-height: 50px;
+  }
+  .login-userInfo {
+    margin-right: 20px;
+    cursor: pointer;
   }
 }
 .ant-layout-sider {

@@ -4,17 +4,21 @@
  * @return:
  */
 <template>
-  <div class="chart-box relative">
+  <div class="chart-box">
     <div
       ref="echartCommon"
       class="chart"
-    />
+    >
+    </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, onMounted, onUnmounted, getCurrentInstance, watch } from 'vue'
+
 import doAnimation from '@/utils/doAnimation.js'
-export default {
+
+export default defineComponent({
   name: 'EchartCommon',
   props: {
     options: {
@@ -22,70 +26,54 @@ export default {
       default: () => ({}),
     },
   },
-  data() {
-    return {
-      chart: null,
-      showNoData: true,
-      animate: null,
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.updateChartView()
-      },
-      deep: true,
-    },
-  },
+  setup(props) {
+    const proxy: any = getCurrentInstance().proxy//获取App全局变量
+    const chart = ref(null)
+    const animate = ref(null)
+    const echartCommon = ref(null)//注册ref获取dom
+    watch(() => props.options, () => {
+      updateChartView()
+    }, { deep: true })
+    onMounted(() => {
+      updateChartView()
+      window.addEventListener('resize', handleWindowResize)
+    })
 
-  mounted() {
-    this.chart = this.$echarts.init(this.$refs.echartCommon)
-    this.updateChartView()
-    window.addEventListener('resize',this.handleWindowResize)
-  },
-  beforeUnmount() {
-    window.removeEventListener('resize',this.handleWindowResize)
-    if (this.animate) {
-      this.animate.destory()
+    onUnmounted(() => {
+      window.removeEventListener('resize', handleWindowResize)
+      if (animate.value) {
+        animate.value.destory()
+      }
+    })
+    //监听窗口改变
+    const handleWindowResize = () => {
+      if (chart.value) {
+        chart.value.resize()
+      }
     }
-  },
-  methods: {
-    /**
-     * 更新echart视图
-     */
-    updateChartView() {
-      if (!this.chart || Object.keys(this.options).length === 0) {
+    //渲染函数
+    const updateChartView = () => {
+      chart.value = proxy.$echarts.init(echartCommon.value)//获取渲染dom初始化
+      if (!chart.value || Object.keys(props.options).length === 0) {
         return
       }
+      chart.value.clear()
       // eslint-disable-next-line no-unused-vars
-      new Promise((resolve,reject) => {
-        this.chart.clear()
-        this.options && this.chart.setOption(this.options)
-        resolve()
+      new Promise((resolve, reject) => {
+        props.options && chart.value.setOption(props.options)
+        resolve(true)
       }).then(() => {
-        if (this.animate) {
-          this.animate.destory()
-          this.animate = null
+        if (animate.vlaue) {
+          animate.vlaue.destory()
+          animate.vlaue = null
         }
-        this.animate = new doAnimation(this.chart)
-        this.animate.animate()
+        animate.vlaue = new doAnimation(chart.value)
+        animate.vlaue.animate()
       })
-    },
-    /**
-     * 当窗口缩放时，echart动态调整自身大小
-     */
-    handleWindowResize() {
-      if (!this.chart) {
-        return
-      }
-      setTimeout(() => {
-        console.log('resize')
-        this.chart.resize()
-      },500);
-
-    },
-  },
-}
+    }
+    return { chart, animate, updateChartView, echartCommon }
+  }
+})
 </script>
 
 <style lang="scss" scoped>
