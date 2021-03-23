@@ -1,6 +1,6 @@
-import http from '@/http/index'
+import http from 'http/index'
 // 定义action type
-export const LOGIN: string = 'LOGIN'
+export const LOGIN = 'LOGIN'
 // 指定对应api
 export const api = {
   [LOGIN]: `/login`, // 登录
@@ -16,7 +16,7 @@ const state = {
 
 // 异步操作放到action handler里
 const actions = {
-  doLogin({ commit }, payload: any) {
+  doLogin({ commit }, payload) {
     return new Promise(async (resolve, reject) => {
       try {
         const rst = await http.post(api[LOGIN], payload)
@@ -31,7 +31,7 @@ const actions = {
     })
   },
   //异步更新当前菜单
-  doCurrentMenu({ commit }, payload: any) {
+  doCurrentMenu({ commit }, payload) {
     commit('SET_CURRENT_MENU', payload)
   },
 }

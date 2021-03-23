@@ -20,25 +20,25 @@ export default {
     }, //边框
     pageSizeOptions: {
       type: Array,
-      default: () => ['10','20','30    ','4    0','    50','60'],
+      default: () => ['10', '20', '30    ', '4    0', '    50', '60'],
     }, //每页条数选项
     pageSize: {
-      type: [String,Number],
+      type: [String, Number],
       default: 10,
     }, //每页条数
     currentPage: {
-      type: [String,Number],
+      type: [String, Number],
       default: 1,
     }, //当前页码
     total: {
-      type: [String,Number],
+      type: [String, Number],
       default: 0,
     }, //总条数
   },
   data() {
     return {
       scroll: {},
-      selectedRowKeys: [],//多选
+      selectedRowKeys: [], //多选
       currentPageSize: this.pageSize,
     }
   },
@@ -46,33 +46,34 @@ export default {
     columns: {
       deep: true,
       immediate: true,
-      handler: function (val,oldVal) {
+      // eslint-disable-next-line no-unused-vars
+      handler: function (val, oldVal) {
         this.autoHeight()
-      }
+      },
     },
   },
   mounted() {
     //监听窗口改变
-    window.addEventListener('resize',() => {
+    window.addEventListener('resize', () => {
       this.autoHeight()
     })
     this.autoHeight()
 
   },
   unmounted() {
-    window.removeEventListener('resize',() => {
+    window.removeEventListener('resize', () => {
       this.autoHeight()
     })
   },
   methods: {
     //页面改变
-    pageChange(page,pageSize) {
-      this.$emit('on-page-change',page,pageSize)
+    pageChange(page, pageSize) {
+      this.$emit('on-page-change', page, pageSize)
     },
     //每页条数改变
-    showSizeChange(current,size) {
+    showSizeChange(current, size) {
       this.currentPageSize = size
-      this.$emit('on-show-size-change',current,size)
+      this.$emit('on-show-size-change', current, size)
     },
     //数据列表行属性
     customRow(record) {
@@ -82,18 +83,19 @@ export default {
         //   overflow: "hidden"
         // },
         // 事件
+        // eslint-disable-next-line no-unused-vars
         onClick: (event) => {
-          this.$emit('on-click',record)
+          this.$emit('on-click', record)
         }, // 点击行
         // eslint-disable-next-line no-unused-vars
         onDblclick: (event) => {
-          this.$emit('on-dblclick',record)
+          this.$emit('on-dblclick', record)
         },
       }
     },
     //多选
-    onSelectChange(selectedRowKeys,selectedRows) {
-      this.$emit('rowSelection',selectedRowKeys,selectedRows)
+    onSelectChange(selectedRowKeys, selectedRows) {
+      this.$emit('rowSelection', selectedRowKeys, selectedRows)
     },
     //表格计算自动高度
     autoHeight() {
@@ -101,10 +103,10 @@ export default {
         return
       }
       setTimeout(() => {
-        const widthTotal = this.columns.reduce((prv,current) => {
+        const widthTotal = this.columns.reduce((prv, current) => {
           const news = current.show && current.width ? Number(current.width) : 180
           return prv + news
-        },0)
+        }, 0)
         const x =
           widthTotal > this.$refs.STable.getBoundingClientRect().width ?
             widthTotal :
@@ -113,7 +115,7 @@ export default {
           x,
           y: this.$refs.STable.getBoundingClientRect().height - 65,
         }
-      },0)
+      }, 0)
     },
   },
   render() {

@@ -30,11 +30,14 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script>
 import { defineComponent, ref } from 'vue'
 import { UnorderedListOutlined } from '@ant-design/icons-vue'
 export default defineComponent({
   name: 'ListCustom',
+  components: {
+    UnorderedListOutlined,
+  },
   props: {
     columns: {
       type: Array,
@@ -45,16 +48,13 @@ export default defineComponent({
       default: 5,
     }, //最少显示多少项
   },
-  components: {
-    UnorderedListOutlined
-  },
   setup(props, context) {
-    let visible = ref(false)
-    let disabled = ref(false)
+    const visible = ref(false)
+    const disabled = ref(false)
     function onChange(e, data) {
       data.show = e.target.checked
       context.emit('changeColumns', props.columns)
-      if (props.columns.filter((v: any) => v.show).length <= props.showNumber) {
+      if (props.columns.filter((v) => v.show).length <= props.showNumber) {
         disabled.value = true
       } else {
         disabled.value = false
@@ -63,9 +63,9 @@ export default defineComponent({
     return {
       visible,
       disabled,
-      onChange
+      onChange,
     }
-  }
+  },
 })
 </script>
 

@@ -3,11 +3,11 @@
  */
 const req = require.context('./', true, /\.js$/)
 export default {
-  install: (Vue: any) => {
-    req.keys().map(req).forEach((ele: any) => {
+  install: (Vue) => {
+    req.keys().map(req).forEach((ele) => {
       if (ele.default) {
         Vue.use(ele.default)
       }
     })
-  }
+  },
 }

@@ -13,13 +13,13 @@
   </a-config-provider>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, ref } from 'vue'
-import zhCN from 'ant-design-vue/es/locale/zh_CN';
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
 export default defineComponent({
   setup() {
     return { locale: ref(zhCN) }
-  }
+  },
 })
 </script>
 

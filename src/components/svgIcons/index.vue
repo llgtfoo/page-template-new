@@ -11,8 +11,8 @@
   </svg>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue';
+<script>
+import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'SvgIcons',
@@ -20,6 +20,7 @@ export default defineComponent({
     iconClass: {
       type: String,
       required: true,
+      default: 'long',
     },
     className: {
       type: String,
@@ -34,7 +35,7 @@ export default defineComponent({
       if (props.className) {
         return `svg-icon ${props.className}`
       } else {
-        return 'svg-icon';
+        return 'svg-icon'
       }
     })
     return {

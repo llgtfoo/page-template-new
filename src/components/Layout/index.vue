@@ -48,7 +48,7 @@
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header class='layout-header-nav'>
+      <a-layout-header class="layout-header-nav">
         <menu-unfold-outlined
           v-if="collapsed"
           :style="{color:'#fff',fontSize:'25px'}"
@@ -65,7 +65,7 @@
           {{sysName}}
         </div>
         <div class="system-time">
-          <date-time v-slot:default='slotProps'>
+          <date-time v-slot:default="slotProps">
             {{slotProps.data.year}}年
             {{slotProps.data.month}}月
             {{slotProps.data.day}}日&nbsp;&nbsp;&nbsp;
@@ -87,14 +87,13 @@
             <template #overlay>
               <a-menu
                 mode="vertical"
-                @click='infoChange'
+                @click="infoChange"
                 v-model:selectedKeys="current"
               >
-
-                <a-menu-item :key='1'>
+                <a-menu-item :key="1">
                   <UserOutlined />账户设置
                 </a-menu-item>
-                <a-menu-item :key='2'>
+                <a-menu-item :key="2">
                   <UserOutlined />退出登录
                 </a-menu-item>
                 <a-sub-menu>
@@ -124,15 +123,13 @@
     </a-layout>
   </a-layout>
 </template>
-<script lang="ts">
+<script>
 import menusJson from 'mock/menus/index.json'
-import {
-  createFromIconfontCN,
+import {createFromIconfontCN,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
-  SettingOutlined
-} from '@ant-design/icons-vue'
+  SettingOutlined,} from '@ant-design/icons-vue'
 import { computed, defineComponent, reactive, toRefs, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 //阿里图标库引用
@@ -223,7 +220,6 @@ export default defineComponent({
     }
 
     const infoChange = function (e) {
-      console.log(e, 'e')
       state.current = [e.key]
     }
     return {

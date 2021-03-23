@@ -76,95 +76,92 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+<script>
+import { defineComponent, reactive, ref, onMounted, watch } from 'vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
-import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
-interface FormState {
-  username: string;
-  password: string;
-  checked: boolean;
-}
-@Options({
+import { useRoute, useRouter } from 'vue-router'
+export default defineComponent({
   components: {
     UserOutlined,
     LockOutlined,
   },
-  watch: {
-    'formState.username'(newValue) {
-      if (newValue === '') {
-        this.formState.checked = false
+  setup() {
+    const router = useRouter()
+    // eslint-disable-next-line no-unused-vars
+    const route = useRoute()
+    onMounted(() => {
+      if (localStorage.getItem('username')) {
+        formState.checked = true
+        formState.username = localStorage.getItem('username')
       }
-    },
-  },
-  $refs!: {
-    formRef: HTMLInputElement,
+    })
+    const formRef = ref(null)//$refs获取组件实例
+    const formState = reactive({
+      username: 'lltfoo',
+      password: '1111',
+      checked: false,
+    })
+    watch(() => formState.username, (newValue) => {
+      if (newValue === '') {
+        formState.checked = false
+      }
+    })
+    //   // 用户名自定义规则
+    // eslint-disable-next-line no-unused-vars
+    const validateUsername = async (rule, value) => {
+      if (value === '') {
+        return Promise.reject('用户名不能为空')
+      } else {
+        return Promise.resolve()
+      }
+    }
+    // 密码自定义规则
+    // eslint-disable-next-line no-unused-vars
+    const validatePassword = async (rule, value) => {
+      if (value === '') {
+        return Promise.reject('密码不能为空')
+      } else {
+        return Promise.resolve()
+      }
+    }
+    //校验规则
+    const rules = {
+      username: [{ validator: validateUsername, trigger: 'change' }],
+      password: [{ validator: validatePassword, trigger: 'change' }],
+    }
+    //记住用户名操作
+    const onChnage = function (e) {
+      if (e.target.checked && formState.username !== '') {
+        localStorage.setItem('username', formState.username)
+      } else {
+        localStorage.removeItem('username')
+      }
+    }
+    //登录
+    const onSubmit = function () {
+      const root = formRef.value//$refs
+      console.log(root, 'root')
+      root
+        .validate()
+        .then(() => {
+          console.log('values', formState)
+          router.push('/home')
+        })
+        .catch((error) => {
+          console.log('error', error)
+        })
+    }
+    return {
+      formRef,
+      formState,
+      rules,
+      labelCol: { span: 6, offset: 3 },
+      wrapperCol: { span: 18, offset: 3 },
+      onSubmit,
+      onChnage,
+    }
   },
 })
-export default class Login extends Vue {
-  //记住用户名
-  mounted() {
-    if (localStorage.getItem('username')) {
-      this.formState.checked = true
-      this.formState.username = localStorage.getItem('username')
-    }
-  }
-  //默认值
-  formState = {
-    username: 'lltfoo',
-    password: '1111',
-    checked: false,
-  };
-  // 用户名自定义规则
-  // eslint-disable-next-line no-unused-vars
-  validateUsername = async (rule, value) => {
-    if (value === '') {
-      return Promise.reject('用户名不能为空')
-    } else {
-      return Promise.resolve()
-    }
-  };
-  // 密码自定义规则
-  // eslint-disable-next-line no-unused-vars
-  validatePassword = async (rule, value) => {
-    if (value === '') {
-      return Promise.reject('密码不能为空')
-    } else {
-      return Promise.resolve()
-    }
-  };
-  //校验规则
-  rules = {
-    username: [{ validator: this.validateUsername, trigger: 'change' }],
-    password: [{ validator: this.validatePassword, trigger: 'change' }],
-  };
-  labelCol = { span: 6, offset: 3 };
-  wrapperCol = { span: 18, offset: 3 };
-
-  //记住用户名操作
-  onChnage(e) {
-    if (e.target.checked && this.formState.username !== '') {
-      localStorage.setItem('username', this.formState.username)
-    } else {
-      localStorage.removeItem('username')
-    }
-  }
-  //登录
-  onSubmit() {
-    const root: any = this.$refs.formRef
-    root
-      .validate()
-      .then(() => {
-        console.log('values', this, this.formState)
-
-        this.$router.push('/home')
-      })
-      .catch((error: ValidateErrorEntity<FormState>) => {
-        console.log('error', error)
-      })
-  }
-}
 </script>
 
 <style lang="scss" scoped>
