@@ -1,5 +1,5 @@
 {
-  "name": "{{name}}",
+  "name": "name",
   "version": "0.1.0",
   "private": true,
   "description": "{{description}}",
@@ -10,18 +10,18 @@
   },
   "dependencies": {
     "ant-design-vue": "^2.0.1",
+    "axios": "^0.18.0",
     "core-js": "^3.6.5",
     "echarts": "^5.0.2",
+    "svg-sprite-loader": "^6.0.0",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
+    "vue-cli-plugin-axios": "0.0.4",
     "vue-count-to": "^1.0.13",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",
     "vuex-persistedstate": "^4.0.0-beta.3",
-    "vuex-router-sync": "^5.0.0",
-    "axios": "^0.18.0",
-    "vue-cli-plugin-axios": "0.0.4",
-    "svg-sprite-loader": "^6.0.0"
+    "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
     "@ourea/eslint-config-tq": "0.0.2",
@@ -38,6 +38,8 @@
     "babel-plugin-import-glob": "^2.0.0",
     "eslint": "^7.22.0",
     "eslint-plugin-vue": "^7.7.0",
+    "less": "^2.7.3",
+    "less-loader": "^7.3.0",
     "node-sass": "^4.12.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",

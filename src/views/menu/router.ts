@@ -25,6 +25,14 @@ export default () => (
           name: '菜单二'
         }
       },
+      {
+        path: '/home/index3',
+        name: 'index3',
+        component: () => import('./views/children/menu-3/index.vue'),
+        meta: {
+          name: '菜单二'
+        }
+      },
     ],
   }
 )

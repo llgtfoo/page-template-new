@@ -16,6 +16,12 @@
                 "cnameKey": "/home/index2",
                 "normalUrl": "/home/index2",
                 "icon": "icon-office-supplies-fill"
+            },
+            {
+                "cname": "子菜单三",
+                "cnameKey": "/home/index3",
+                "normalUrl": "/home/index3",
+                "icon": "icon-office-supplies-fill"
             }
         ]
     }

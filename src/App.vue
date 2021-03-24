@@ -1,24 +1,35 @@
 <template>
-  <a-config-provider :locale="locale">
-    <div class="wrapper">
-      <keep-alive>
-        <router-view v-slot="{ Component, route }">
-          <component
-            :is="Component"
-            :route="route"
-          />
-        </router-view>
-      </keep-alive>
-    </div>
-  </a-config-provider>
+  <theme-provider
+    id='app'
+    :theme='theme'
+  >
+    <a-config-provider :locale="locale">
+      <div class="wrapper">
+        <keep-alive>
+          <router-view v-slot="{ Component, route }">
+            <component
+              :is="Component"
+              :route="route"
+            />
+          </router-view>
+        </keep-alive>
+      </div>
+    </a-config-provider>
+  </theme-provider>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed, getCurrentInstance } from 'vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 export default defineComponent({
   setup() {
-    return { locale: ref(zhCN) }
+    const proxy: any = getCurrentInstance().proxy//获取App全局变量
+
+    const theme = computed(() => {
+      return proxy.$store.getters['common/user/userTheme']
+    })
+
+    return { locale: ref(zhCN), theme }
   }
 })
 </script>
@@ -31,3 +42,4 @@ export default defineComponent({
   position: relative;
 }
 </style>
+

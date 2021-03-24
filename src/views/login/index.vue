@@ -157,8 +157,9 @@ export default class Login extends Vue {
       .validate()
       .then(() => {
         console.log('values', this, this.formState)
-
-        this.$router.push('/home')
+        localStorage.setItem('token', 'llgtfooToken')
+        const goRedirectPath: any = this.$route.query.redirect ? this.$route.query.redirect : '/home'
+        this.$router.push(goRedirectPath)
       })
       .catch((error: ValidateErrorEntity<FormState>) => {
         console.log('error', error)

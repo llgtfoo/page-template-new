@@ -11,7 +11,7 @@ const state = {
     orgId: '1',
   },
   currentMenu: {}, //当前菜单项
-  userTheme: 'default', //主题
+  userTheme: 'red', //主题
 }
 
 // 异步操作放到action handler里
@@ -33,6 +33,9 @@ const actions = {
   //异步更新当前菜单
   doCurrentMenu({ commit }, payload: any) {
     commit('SET_CURRENT_MENU', payload)
+  },
+  doSetTheme({ commit }, payload: any) {
+    commit('SET_USER_THEME', payload)
   },
 }
 
