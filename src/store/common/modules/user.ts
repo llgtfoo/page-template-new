@@ -11,7 +11,7 @@ const state = {
     orgId: '1',
   },
   currentMenu: {}, //当前菜单项
-  userTheme: 'red', //主题
+  userTheme: 'default', //主题
 }
 
 // 异步操作放到action handler里

@@ -1,3 +1,3 @@
 export default (type) => {
-   require(`../theme/${type}.theme.less`)
+    require(`../theme/${type}.theme.less`)
 }

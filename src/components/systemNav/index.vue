@@ -1,3 +1,7 @@
+/**
+ * @name: 系统导航栏
+ * @param {type}
+ */
 <template>
   <a-layout-header class='layout-header-nav'>
     <menu-unfold-outlined
@@ -43,10 +47,10 @@
             v-model:selectedKeys="current"
           >
 
-            <a-menu-item :key='1'>
+            <a-menu-item key='setting'>
               <UserOutlined />账户设置
             </a-menu-item>
-            <a-menu-item :key='2'>
+            <a-menu-item key='loginOut'>
               <UserOutlined />退出登录
             </a-menu-item>
             <a-sub-menu>
@@ -57,9 +61,10 @@
                 </span>
               </template>
               <a-menu-item-group>
-                <a-menu-item key="setting:1">蓝色</a-menu-item>
-                <a-menu-item key="setting:2">红色</a-menu-item>
-                <a-menu-item key="setting:3">橙色</a-menu-item>
+                <a-menu-item
+                  v-for='item in themeButton'
+                  :key="item.key"
+                >{{item.name}}</a-menu-item>
               </a-menu-item-group>
             </a-sub-menu>
           </a-menu>
@@ -72,8 +77,15 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import {
-  UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined,
+  SettingOutlined,
+  UserOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
 } from '@ant-design/icons-vue'
+interface themeButton {
+  key: String,
+  name: String
+}
 @Options({
   props: {
     collapsed: {
@@ -87,14 +99,51 @@ import {
     MenuFoldOutlined,
     UserOutlined,
     MenuUnfoldOutlined,
+    SettingOutlined
+
   },
 })
 export default class SystemNav extends Vue {
-  current: string[] = ['setting:1']
-  //   collapsed = true
+  current: string[] = []
+  themeButton: themeButton[] = [
+    {
+      key: 'default',
+      name: "蓝色"
+    },
+    {
+      key: 'red',
+      name: "红色"
+    },
+    {
+      key: 'green',
+      name: "绿色"
+    },
+    {
+      key: 'deepBlue',
+      name: "深蓝色"
+    },
+  ]//换肤类型
+  $store: any
+  mounted() {
+    const current: any = this.themeButton.filter(v => v.key === this.currentTheme)
+    this.current = [current[0].key]
+  }
+  //计算属性
+  get currentTheme(): String {
+    return this.$store.getters['common/user/userTheme']
+  }
+  // 换肤事件
   infoChange(e) {
-    console.log(e, 'e')
-    this.current = [e.key]
+    if (e.key === 'setting') {
+
+    } else if (e.key === 'loginOut') {
+      localStorage.removeItem('token')
+      this.$router.push('/login')
+    } else {
+      this.current = [e.key]
+      this.$store.dispatch('common/user/doSetTheme', e.key)
+    }
+
   }
 }
 </script>

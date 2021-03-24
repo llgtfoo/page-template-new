@@ -69,7 +69,6 @@
 import menusJson from 'mock/menus/index.json'
 import {
   createFromIconfontCN,
-  SettingOutlined
 } from '@ant-design/icons-vue'
 import { computed, defineComponent, reactive, toRefs, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -115,7 +114,6 @@ const SubMenu = {
 export default defineComponent({
   name: 'Layout',
   components: {
-    SettingOutlined,
     'sub-menu': SubMenu,
     'icon-font': IconFont,
   },

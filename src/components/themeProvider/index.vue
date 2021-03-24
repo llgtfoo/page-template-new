@@ -1,3 +1,7 @@
+/**
+ * @name: 主题定制
+ * @param {type}
+ */
 <template>
   <div
     class='theme-wrapper'
@@ -34,24 +38,6 @@ export default defineComponent({
     }
 
   }
-  //   data() {
-  //     return {
-  //       themeLoaded: true,
-  //       styleDom: document.createElement('style'),
-  //     }
-  //   },
-  //   watch: {
-  //     theme(t) {
-  //       loadTheme(t)
-  //       document.body.className = ''
-  //       document.body.classList.add(`theme-${t}`)
-  //     },
-  //   },
-  //   async created() {
-  //     loadTheme(this.theme)
-  //     document.body.className = ''
-  //     document.body.classList.add(`theme-${this.theme}`)
-  //   },
 })
 </script>
 
