@@ -77,9 +77,9 @@
   </div>
 </template>
 <script>
-import { defineComponent, reactive, ref, onMounted, watch } from 'vue'
-import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
-import { useRoute, useRouter } from 'vue-router'
+import { defineComponent,reactive,ref,onMounted,watch } from 'vue'
+import { UserOutlined,LockOutlined } from '@ant-design/icons-vue'
+import { useRoute,useRouter } from 'vue-router'
 export default defineComponent({
   components: {
     UserOutlined,
@@ -101,14 +101,14 @@ export default defineComponent({
       password: '1111',
       checked: false,
     })
-    watch(() => formState.username, (newValue) => {
+    watch(() => formState.username,(newValue) => {
       if (newValue === '') {
         formState.checked = false
       }
     })
     //   // 用户名自定义规则
     // eslint-disable-next-line no-unused-vars
-    const validateUsername = async (rule, value) => {
+    const validateUsername = async (rule,value) => {
       if (value === '') {
         return Promise.reject('用户名不能为空')
       } else {
@@ -117,7 +117,7 @@ export default defineComponent({
     }
     // 密码自定义规则
     // eslint-disable-next-line no-unused-vars
-    const validatePassword = async (rule, value) => {
+    const validatePassword = async (rule,value) => {
       if (value === '') {
         return Promise.reject('密码不能为空')
       } else {
@@ -126,13 +126,13 @@ export default defineComponent({
     }
     //校验规则
     const rules = {
-      username: [{ validator: validateUsername, trigger: 'change' }],
-      password: [{ validator: validatePassword, trigger: 'change' }],
+      username: [{ validator: validateUsername,trigger: 'change' }],
+      password: [{ validator: validatePassword,trigger: 'change' }],
     }
     //记住用户名操作
     const onChnage = function (e) {
       if (e.target.checked && formState.username !== '') {
-        localStorage.setItem('username', formState.username)
+        localStorage.setItem('username',formState.username)
       } else {
         localStorage.removeItem('username')
       }
@@ -140,23 +140,24 @@ export default defineComponent({
     //登录
     const onSubmit = function () {
       const root = formRef.value//$refs
-      console.log(root, 'root')
+      console.log(root,'root')
       root
         .validate()
         .then(() => {
-          console.log('values', formState)
+          console.log('values',formState)
+          localStorage.setItem('token','llgtfoo')
           router.push('/home')
         })
         .catch((error) => {
-          console.log('error', error)
+          console.log('error',error)
         })
     }
     return {
       formRef,
       formState,
       rules,
-      labelCol: { span: 6, offset: 3 },
-      wrapperCol: { span: 18, offset: 3 },
+      labelCol: { span: 6,offset: 3 },
+      wrapperCol: { span: 18,offset: 3 },
       onSubmit,
       onChnage,
     }
