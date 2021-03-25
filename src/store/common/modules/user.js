@@ -34,6 +34,9 @@ const actions = {
   doCurrentMenu({ commit }, payload) {
     commit('SET_CURRENT_MENU', payload)
   },
+   doSetTheme({ commit }, payload) {
+    commit('SET_USER_THEME', payload)
+  },
 }
 
 // 根据commit更新store

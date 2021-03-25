@@ -5,6 +5,20 @@ module.exports = {
   pluginOptions: {
     PROJ_TYPE: 'template', // 项目类型
   },
+   css: {
+    loaderOptions: {
+      less: {
+        lessOptions: {
+          // modifyVars: {
+          //   "primary-color": "red",
+          //   "link-color": "red",
+          //   "border-radius-base": "2px",
+          // },
+          javascriptEnabled: true,
+        },
+      },
+    },
+  },
   //webpack配置---目录别名
   configureWebpack: {
     resolve: {
@@ -30,13 +44,6 @@ module.exports = {
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')
       .options({ symbolId: 'icon-[name]' })
-  },
-  css: {
-    loaderOptions: { // 向 CSS 相关的 loader 传递选项
-      less: {
-        javascriptEnabled: true,
-      },
-    },
   },
   devServer: {
     proxy: {

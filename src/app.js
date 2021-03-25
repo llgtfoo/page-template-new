@@ -2,14 +2,14 @@ import '@/assets/css/init.css' //全局默认css
 import '@/assets/css/scroll.scss' //全局默认css
 import '@/icons/index' //svg图标
 import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css' //ui库
+import 'ant-design-vue/dist/antd.less' //ui库
 import * as echarts from 'echarts' //百度echarts图表
 import { createApp } from 'vue'
 import { sync } from 'vuex-router-sync'
 import App from './App.vue'
 import components from './components/index' //全局组件
 import directives from './directives/index' //全局指令
-import axios from './http/axios' //axios请求协议
+import axiosPlugin from './http/axios' //axios请求协议
 import http from './http/index' //自定义post和get协议
 import router from './router' //路由
 import store from './store' //状态管理
@@ -18,7 +18,7 @@ import views from './views/index'
 sync(store, router)//route和store结合
 const app = createApp(App)
   .use(views, router, store)
-  .use(axios)
+  .use(axiosPlugin)
   .use(store)
   .use(router)
   .use(components)

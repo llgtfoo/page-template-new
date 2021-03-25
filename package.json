@@ -1,5 +1,5 @@
 {
-  "name": "{{name}}",
+  "name": "name",
   "version": "0.1.0",
   "private": true,
   "description": "{{description}}",
@@ -30,6 +30,8 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "eslint": "^7.22.0",
+    "less": "^2.7.3",
+    "less-loader": "^7.3.0",
     "eslint-plugin-vue": "^7.8.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2"

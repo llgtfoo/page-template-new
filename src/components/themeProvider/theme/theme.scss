@@ -1,0 +1,58 @@
+@charset "UTF-8";
+/*
+* --primary-color           通用颜色
+* --header-font-color       顶部系统名称字体颜色
+* --header-font-color       顶部字体颜色
+* --header-top-bg-color     顶部背景颜色
+* --header-hover-color      顶部鼠标滑过导航栏颜色
+* --nav-font-color          一级导航栏字体颜色
+*/
+.theme-default {
+  --primary-color: #1890ff;
+  --header-title-color: #fff;
+  --header-font-color: #fff;
+  --header-top-bg-color: #0839b6;
+  --header-hover-color: #3B71F8;
+  --header-on-color: #36CA96;
+  --nav-font-color: #fff;
+}
+
+.theme-red {
+  --primary-color: #BF291B;
+  --header-title-color: #fff;
+  --header-font-color: #fff;
+  --header-top-bg-color: #72150c;
+  --header-hover-color: #CE3A2C;
+  --header-on-color: #9F0D01;
+  --nav-font-color: #fff;
+}
+
+.theme-green {
+  --primary-color: green;
+  --header-title-color: #fff;
+  --header-font-color: #fff;
+  --header-top-bg-color: rgb(1, 82, 1);
+  --header-hover-color: #3B71F8;
+  --header-on-color: #36CA96;
+  --nav-font-color: #fff;
+}
+
+.theme-grey {
+  --primary-color: #536288;
+  --header-title-color: #fff;
+  --header-font-color: #fff;
+  --header-top-bg-color: #536288;
+  --header-hover-color: #5C6C96;
+  --header-on-color: #404D70;
+  --nav-font-color: #fff;
+}
+
+.theme-deepBlue {
+  --primary-color:#003580;
+  --header-title-color: #fff;
+  --header-font-color: #fff;
+  --header-top-bg-color: #02214d;
+  --header-hover-color: #0B408C;
+  --header-on-color: #3A97D5;
+  --nav-font-color: #fff;
+}
