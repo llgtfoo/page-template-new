@@ -1,31 +1,30 @@
-/**
- * @name: 系统导航栏
- * @param {type}
- */
+/** 
+*@name: 系统导航栏 
+* @param {type}
+*/
 <template>
-  <a-layout-header class='layout-header-nav'>
+  <a-layout-header class="layout-header-nav">
     <menu-unfold-outlined
       v-if="collapsed"
-      :style="{color:'#fff',fontSize:'25px'}"
+      :style="{ color: '#fff', fontSize: '25px' }"
       class="trigger"
       @click="$emit('update:collapsed', !collapsed)"
     />
     <menu-fold-outlined
       v-else
       class="trigger"
-      :style="{color:'#fff',fontSize:'25px'}"
+      :style="{ color: '#fff', fontSize: '25px' }"
       @click="$emit('update:collapsed', !collapsed)"
     />
     <div class="system-name">
-      {{systemName}}
+      {{ systemName }}
     </div>
     <div class="system-time">
-      <date-time v-slot:default='slotProps'>
-        {{slotProps.data.year}}年
-        {{slotProps.data.month}}月
-        {{slotProps.data.day}}日&nbsp;&nbsp;&nbsp;
-        {{slotProps.data.week}}&nbsp;&nbsp;&nbsp;
-        {{slotProps.data.time}}
+      <date-time v-slot:default="slotProps">
+        {{ slotProps.data.year }}年 {{ slotProps.data.month }}月
+        {{ slotProps.data.day }}日&nbsp;&nbsp;&nbsp;
+        {{ slotProps.data.week }}&nbsp;&nbsp;&nbsp;
+        {{ slotProps.data.time }}
       </date-time>
     </div>
     <div class="login-userInfo">
@@ -43,14 +42,13 @@
           <a-menu
             theme="light"
             mode="inline"
-            @click='infoChange'
+            @click="infoChange"
             v-model:selectedKeys="current"
           >
-
-            <a-menu-item key='setting'>
+            <a-menu-item key="setting">
               <UserOutlined />账户设置
             </a-menu-item>
-            <a-menu-item key='loginOut'>
+            <a-menu-item key="loginOut">
               <UserOutlined />退出登录
             </a-menu-item>
             <a-sub-menu>
@@ -62,9 +60,11 @@
               </template>
               <a-menu-item-group>
                 <a-menu-item
-                  v-for='item in themeButton'
+                  v-for="item in themeButton"
                   :key="item.key"
-                >{{item.name}}</a-menu-item>
+                >{{
+                  item.name
+                }}</a-menu-item>
               </a-menu-item-group>
             </a-sub-menu>
           </a-menu>
@@ -74,80 +74,92 @@
   </a-layout-header>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+<script>
+import {
+  defineComponent,
+  reactive,
+  toRefs,
+  computed,
+  onMounted,
+  getCurrentInstance,
+  watch
+} from "vue"
+import { useRouter } from "vue-router"
 import {
   SettingOutlined,
   UserOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-} from '@ant-design/icons-vue'
-interface themeButton {
-  key: String,
-  name: String
-}
-@Options({
+} from "@ant-design/icons-vue"
+export default defineComponent({
+  name: 'SystemNav',
   props: {
     collapsed: {
       type: Boolean,
     },
     systemName: {
       type: String,
-    }
+    },
   },
   components: {
     MenuFoldOutlined,
     UserOutlined,
     MenuUnfoldOutlined,
-    SettingOutlined
-
+    SettingOutlined,
+  },
+  setup(props) {
+    const _this = getCurrentInstance().proxy
+    const router = useRouter()
+    const state = reactive({
+      visible: false,
+      current: [],
+      themeButton: [
+        {
+          key: "default",
+          name: "蓝色",
+        },
+        {
+          key: "red",
+          name: "红色",
+        },
+        {
+          key: "green",
+          name: "绿色",
+        },
+        {
+          key: "deepBlue",
+          name: "深蓝色",
+        },
+      ], //换肤类型
+    })
+    //当前主题
+    const currentTheme = computed(() => {
+      return _this.$store.getters["common/user/userTheme"]
+    })
+    onMounted(() => {
+      const current = state.themeButton.filter((v) => v.key === currentTheme.value)
+      state.current = [current.length > 0 ? current[0].key : ""]
+    })
+    // 换肤事件
+    const infoChange = function (e) {
+      if (e.key === "setting") {
+      } else if (e.key === "loginOut") {
+        localStorage.removeItem("token")
+        router.push("/login")
+      } else {
+        state.current = [e.key]
+        _this.$store.dispatch("common/user/doSetTheme",e.key)
+      }
+    }
+    return {
+      ...toRefs(state),
+      infoChange,
+      currentTheme,
+    }
   },
 })
-export default class SystemNav extends Vue {
-  current: string[] = []
-  visible = false
-  themeButton: themeButton[] = [
-    {
-      key: 'default',
-      name: "蓝色"
-    },
-    {
-      key: 'red',
-      name: "红色"
-    },
-    {
-      key: 'green',
-      name: "绿色"
-    },
-    {
-      key: 'deepBlue',
-      name: "深蓝色"
-    },
-  ]//换肤类型
-  $store: any
-  mounted() {
-    const current: any = this.themeButton.filter(v => v.key === this.currentTheme)
-    this.current = [current[0].key]
-  }
-  //计算属性
-  get currentTheme(): String {
-    return this.$store.getters['common/user/userTheme']
-  }
-  // 换肤事件
-  infoChange(e) {
-    if (e.key === 'setting') {
-
-    } else if (e.key === 'loginOut') {
-      localStorage.removeItem('token')
-      this.$router.push('/login')
-    } else {
-      this.current = [e.key]
-      this.$store.dispatch('common/user/doSetTheme', e.key)
-    }
-
-  }
-}
 </script>
+
 
 <style lang='scss' scoped>
 .ant-layout-header {

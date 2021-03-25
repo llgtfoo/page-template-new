@@ -12,10 +12,10 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import './theme/theme.scss'
 import loadTheme from './script/loadTheme'
-import { defineComponent,ref,watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 export default defineComponent({
   name: 'ThemeProvider',
   props: {
@@ -28,7 +28,7 @@ export default defineComponent({
     document.body.className = ''
     document.body.classList.add(`theme-${props.theme}`)
 
-    watch(() => props.theme,(t) => {
+    watch(() => props.theme, (t) => {
       loadTheme(t)
       document.body.className = ''
       document.body.classList.add(`theme-${t}`)

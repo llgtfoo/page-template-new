@@ -15,9 +15,13 @@
 </template>
 <script lang="ts">
 import styles from './index.module.scss';
-import { Options, Vue } from 'vue-class-component';
-@Options({})
-export default class Loading extends Vue {
-  styles: any = styles;
-}
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: "Loading",
+  data() {
+    return {
+      styles
+    }
+  }
+})
 </script>

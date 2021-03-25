@@ -7,9 +7,6 @@ import * as echarts from "echarts" //百度echarts图表
 import { createApp } from "vue"
 import { sync } from "vuex-router-sync"
 import App from "./App.vue" //入口文件
-// import theme from "./assets/css/loadTheme.js"
-// import "./assets/css/red.theme.less"
-// import './assets/css/theme.scss'
 import components from "./components/index" //全局组件
 import directives from "./directives/index" //全局指令
 import axios from "./http/axios" //axios请求协议
@@ -36,5 +33,4 @@ const app = createApp(App)
 //全局挂载
 app.config.globalProperties.$http = http
 app.config.globalProperties.$echarts = echarts
-// theme('red')
 export default app
