@@ -1,6 +1,6 @@
 # vue-tpl
 
-## vue+ts 模块,开箱即用
+## vue3.0 模块,开箱即用
 
 ```
 封装组件和指令，ui为ant-design-vue@2.0.1
