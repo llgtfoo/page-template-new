@@ -5,14 +5,14 @@
   >
     <a-config-provider :locale="locale">
       <div class="wrapper">
-        <keep-alive>
-          <router-view v-slot="{ Component, route }">
+        <router-view v-slot="{ Component, route }">
+          <keep-alive>
             <component
               :is="Component"
               :route="route"
             />
-          </router-view>
-        </keep-alive>
+          </keep-alive>
+        </router-view>
       </div>
     </a-config-provider>
   </theme-provider>

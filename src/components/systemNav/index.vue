@@ -105,6 +105,7 @@ interface themeButton {
 })
 export default class SystemNav extends Vue {
   current: string[] = []
+  visible = false
   themeButton: themeButton[] = [
     {
       key: 'default',
