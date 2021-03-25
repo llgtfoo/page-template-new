@@ -1,9 +1,11 @@
 # page-tpl-new
 
-## vue+ts模块,开箱即用
+## vue+ts 模块,开箱即用
+
 ```
 封装组件和指令，ui为ant-design-vue@2.0.1
 ```
+
 ```
 page-tpl-new
 ├─ .eslintrc.js
@@ -17,16 +19,11 @@ page-tpl-new
 │  └─ index.html
 ├─ README.md
 ├─ src
-│  ├─ main.ts
-│  ├─ mock
 │  ├─ app.ts
 │  ├─ App.vue
 │  ├─ assets
 │  │  ├─ css
-│  │  │  ├─ init.css
-│  │  │  └─ scroll.scss
 │  │  └─ imgs
-│  │     └─ login.png
 │  ├─ components
 │  │  ├─ deteTime
 │  │  │  └─ index.vue
@@ -41,6 +38,8 @@ page-tpl-new
 │  │  │  ├─ index.module.scss
 │  │  │  └─ index.vue
 │  │  ├─ NotData
+│  │  │  ├─ assets
+│  │  │  │  └─ not-data.png
 │  │  │  └─ index.vue
 │  │  ├─ NotFound
 │  │  │  ├─ assets
@@ -50,10 +49,24 @@ page-tpl-new
 │  │  │  └─ index.vue
 │  │  ├─ svgIcons
 │  │  │  └─ index.vue
-│  │  └─ Table
-│  │     └─ index.vue
+│  │  ├─ systemNav
+│  │  │  └─ index.vue
+│  │  ├─ Table
+│  │  │  └─ index.vue
+│  │  └─ themeProvider
+│  │     ├─ index.vue
+│  │     ├─ script
+│  │     │  └─ loadTheme.js
+│  │     └─ theme
+│  │        ├─ deepBlue.theme.less
+│  │        ├─ default.theme.less
+│  │        ├─ green.theme.less
+│  │        ├─ red.theme.less
+│  │        ├─ theme.css
+│  │        └─ theme.scss
 │  ├─ directives
 │  │  ├─ auto-scale
+│  │  │  ├─ children.polyfill.js
 │  │  │  └─ index.js
 │  │  ├─ drag
 │  │  │  └─ index.js
@@ -61,20 +74,30 @@ page-tpl-new
 │  │  └─ water-marker
 │  │     └─ index.js
 │  ├─ http
+│  │  ├─ axios.d.ts
 │  │  ├─ axios.js
+│  │  ├─ index.d.ts
 │  │  └─ index.js
 │  ├─ icons
 │  │  ├─ index.js
 │  │  └─ svg
+│  │     ├─ logo.svg
+│  │     ├─ long.svg
+│  │     └─ yu.svg
+│  ├─ main.ts
+│  ├─ mock
+│  │  └─ menus
+│  │     └─ index.json
+│  ├─ permission.ts
 │  ├─ router
 │  │  └─ index.ts
+│  ├─ shims-vue.d.ts
 │  ├─ store
 │  │  ├─ common
 │  │  │  ├─ index.ts
 │  │  │  └─ modules
 │  │  │     └─ user.ts
 │  │  └─ index.ts
-│  ├─ shims-vue.d.ts
 │  ├─ typed-css.d.ts
 │  ├─ typings.d.ts
 │  ├─ utils
@@ -87,7 +110,6 @@ page-tpl-new
 │     │  └─ index.vue
 │     └─ menu
 │        ├─ index.ts
-│        ├─ index.vue
 │        ├─ router.ts
 │        ├─ store.ts
 │        └─ views
@@ -96,11 +118,12 @@ page-tpl-new
 │              │  ├─ api.js
 │              │  ├─ index.vue
 │              │  └─ store.ts
-│              └─ menu-2
-│                 ├─ api.js
-│                 ├─ index.vue
-│                 └─ store.ts
+│              ├─ menu-2
+│              │  ├─ api.js
+│              │  ├─ index.vue
+│              │  └─ store.ts
+│              └─ menu-3
+│                 └─ index.vue
 ├─ tsconfig.json
 └─ vue.config.js
-
 ```
