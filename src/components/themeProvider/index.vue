@@ -24,17 +24,23 @@ export default defineComponent({
     },
   },
   setup(props) {
-    loadTheme(props.theme)
+    const count = ref(1)
+    loadTheme(props.theme, count.value, () => {
+      count.value++
+    })
     document.body.className = ''
     document.body.classList.add(`theme-${props.theme}`)
 
     watch(() => props.theme, (t) => {
-      loadTheme(t)
+      loadTheme(t, count.value, () => {
+        count.value++
+      })
       document.body.className = ''
       document.body.classList.add(`theme-${t}`)
     })
     return {
-      themeLoaded: ref(true)
+      themeLoaded: ref(true),
+      count
     }
 
   }

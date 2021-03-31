@@ -112,7 +112,7 @@ export default class Login extends Vue {
   }
   //默认值
   formState = {
-    username: 'lltfoo',
+    username: 'llgtfoo',
     password: '1111',
     checked: false,
   };
