@@ -1,8 +1,8 @@
-export default (type,count,cb) => {
-const req = require.context('../theme', true, /\.less$/)
-    import(`../theme/${type}.theme.less`)
-    cb()
-    if(count>req.keys().length){
-        window.location.reload();
-    }
+export default (type, Arr, cb) => {
+  import(`../theme/${type}.theme.less`)
+  if ([...Arr].includes(type)) {
+    window.location.reload()
+  } else {
+    cb(type)
+  }
 }
