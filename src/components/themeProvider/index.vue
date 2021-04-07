@@ -4,9 +4,9 @@
  */
 <template>
   <div
-    class='theme-wrapper'
-    :style='`--theme:${theme};`'
-    v-show='themeLoaded'
+    class="theme-wrapper"
+    :style="`--theme:${theme};`"
+    v-show="themeLoaded"
   >
     <slot />
   </div>
@@ -24,26 +24,30 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const count = ref(1)
-    loadTheme(props.theme, count.value, () => {
-      count.value++
+    const themeArr = ref(new Set())
+    const themeLoaded = ref(false)
+
+    loadTheme(props.theme, themeArr.value, async (value) => {
+      themeArr.value.add(value)
     })
+    themeLoaded.value = true
     document.body.className = ''
     document.body.classList.add(`theme-${props.theme}`)
 
     watch(() => props.theme, (t) => {
-      loadTheme(t, count.value, () => {
-        count.value++
+      loadTheme(t, themeArr.value, async (value) => {
+        themeArr.value.add(value)
       })
+      themeLoaded.value = true
       document.body.className = ''
       document.body.classList.add(`theme-${t}`)
     })
     return {
-      themeLoaded: ref(true),
-      count
+      themeLoaded,
+      themeArr,
     }
 
-  }
+  },
 })
 </script>
 
