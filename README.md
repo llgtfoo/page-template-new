@@ -8,122 +8,93 @@
 
 ```
 page-tpl-new
-├─ .eslintrc.js
-├─ .gitignore
-├─ babel.config.js
-├─ package-lock.json
-├─ package.json
-├─ postcss.config.js
-├─ public
-│  ├─ favicon.ico
-│  └─ index.html
-├─ README.md
+├─ .eslintrc.js ------------------------> eslint配置文件
+├─ .gitignore --------------------------> git提交忽略文件
+├─ babel.config.js ---------------------> babel配置
+├─ package.json ------------------------> 依赖相关配置
+├─ postcss.config.js -------------------> postcss相关配置
+├─ README.md ---------------------------> 说明文档
 ├─ src
-│  ├─ app.ts
-│  ├─ App.vue
-│  ├─ assets
-│  │  ├─ css
-│  │  └─ imgs
-│  ├─ components
-│  │  ├─ deteTime
-│  │  │  └─ index.vue
-│  │  ├─ echartCommon
-│  │  │  └─ index.vue
-│  │  ├─ index.ts
-│  │  ├─ Layout
-│  │  │  └─ index.vue
-│  │  ├─ listCustom
-│  │  │  └─ index.vue
-│  │  ├─ Loading
-│  │  │  ├─ index.module.scss
-│  │  │  └─ index.vue
-│  │  ├─ NotData
-│  │  │  ├─ assets
-│  │  │  │  └─ not-data.png
-│  │  │  └─ index.vue
-│  │  ├─ NotFound
-│  │  │  ├─ assets
-│  │  │  │  └─ 404.png
-│  │  │  └─ index.vue
-│  │  ├─ numberScroll
-│  │  │  └─ index.vue
-│  │  ├─ svgIcons
-│  │  │  └─ index.vue
-│  │  ├─ systemNav
-│  │  │  └─ index.vue
-│  │  ├─ Table
-│  │  │  └─ index.vue
-│  │  └─ themeProvider
-│  │     ├─ index.vue
-│  │     ├─ script
-│  │     │  └─ loadTheme.js
-│  │     └─ theme
-│  │        ├─ deepBlue.theme.less
-│  │        ├─ default.theme.less
-│  │        ├─ green.theme.less
-│  │        ├─ red.theme.less
-│  │        ├─ theme.css
-│  │        └─ theme.scss
-│  ├─ directives
-│  │  ├─ auto-scale
-│  │  │  ├─ children.polyfill.js
-│  │  │  └─ index.js
-│  │  ├─ drag
-│  │  │  └─ index.js
-│  │  ├─ index.ts
-│  │  └─ water-marker
-│  │     └─ index.js
-│  ├─ http
-│  │  ├─ axios.d.ts
-│  │  ├─ axios.js
-│  │  ├─ index.d.ts
-│  │  └─ index.js
-│  ├─ icons
-│  │  ├─ index.js
-│  │  └─ svg
-│  │     ├─ logo.svg
-│  │     ├─ long.svg
-│  │     └─ yu.svg
-│  ├─ main.ts
-│  ├─ mock
-│  │  └─ menus
-│  │     └─ index.json
-│  ├─ permission.ts
-│  ├─ router
-│  │  └─ index.ts
-│  ├─ shims-vue.d.ts
-│  ├─ store
-│  │  ├─ common
-│  │  │  ├─ index.ts
-│  │  │  └─ modules
-│  │  │     └─ user.ts
-│  │  └─ index.ts
-│  ├─ typed-css.d.ts
-│  ├─ typings.d.ts
-│  ├─ utils
-│  │  ├─ bus.ts
-│  │  ├─ doAnimation.js
-│  │  └─ index.ts
-│  └─ views
-│     ├─ index.ts
-│     ├─ login
-│     │  └─ index.vue
-│     └─ menu
-│        ├─ index.ts
-│        ├─ router.ts
-│        ├─ store.ts
-│        └─ views
-│           └─ children
-│              ├─ menu-1
-│              │  ├─ api.js
-│              │  ├─ index.vue
-│              │  └─ store.ts
-│              ├─ menu-2
-│              │  ├─ api.js
-│              │  ├─ index.vue
-│              │  └─ store.ts
-│              └─ menu-3
-│                 └─ index.vue
-├─ tsconfig.json
-└─ vue.config.js
+│  ├─ app.ts ---------------------------> 实例生成文件
+│  ├─ App.vue --------------------------> 页面入口文件
+│  ├─ assets ---------------------------> 静态资源
+│  ├─ components -----------------------> 封装的全局组件
+│  │  ├─ deteTime ----------------------> 时间组件
+│  │  ├─ echartCommon ------------------> echacrt统一动画
+│  │  ├─ index.ts ----------------------> 全局配置文件
+│  │  ├─ Layout ------------------------> 顶部系统导航栏组件
+│  │  ├─ listCustom --------------------> 表格自定义显示组件
+│  │  ├─ Loading -----------------------> loading组件
+│  │  ├─ NotData -----------------------> 无数据页面组件
+│  │  ├─ NotFound ----------------------> 404页面组件
+│  │  ├─ numberScroll ------------------> 数字滚动组件
+│  │  ├─ SideMenu ----------------------> 菜单栏组件
+│  │  ├─ svgIcons ----------------------> svg图标引用组件
+│  │  ├─ Table -------------------------> 表格组件
+│  │  └─ themeProvider -----------------> 主题自定义组件
+│  ├─ directives -----------------------> 封装的全局指令
+│  │  ├─ auto-scale --------------------> 页面尺寸自动缩放指令
+│  │  ├─ drag --------------------------> 拖拽指令
+│  │  ├─ index.ts ----------------------> 全局指令配置文件
+│  │  └─ water-marker ------------------> 系统水印组件
+│  ├─ http -----------------------------> axios协议
+│  │  ├─ axios.js ----------------------> axios配置
+│  │  └─ index.js ----------------------> 封装的axios
+│  ├─ icons ----------------------------> svg自动引入
+│  ├─ main.ts --------------------------> 入口文件
+│  ├─ mock -----------------------------> mock数据文件
+│  ├─ permission.ts --------------------> 路由守卫
+│  ├─ router ---------------------------> 路由
+│  ├─ shims-vue.d.ts -------------------> ts声明文件
+│  ├─ store ----------------------------> vuex状态储存
+│  │  ├─ common ------------------------> 持久化缓存的全局状态目录
+│  │  │  ├─ index.ts -------------------> module注册
+│  │  │  └─ modules --------------------> vuex module
+│  │  └─ index.ts ----------------------> store 入口文件
+│  ├─ typed-css.d.ts -------------------> module.scss声明文件
+│  ├─ typings.d.ts ---------------------> josn声明文件
+│  ├─ utils ----------------------------> 全局工具函数
+│  │  ├─ bus.ts ------------------------> 封装的中央事件总线文件
+│  │  ├─ doAnimation.js ----------------> echarts tooltip文件
+│  │  └─ index.ts ----------------------> 全局函数配置文件
+│  └─ views ----------------------------> 视图页面文件
+│     ├─ index.ts ----------------------> 视图统一入口
+│     ├─ login -------------------------> 登录页面
+│     ├─ module1 -----------------------> 一级模块菜单
+│     │  ├─ children -------------------> 子菜单集
+│     │  │  ├─ menu1 -------------------> 二级菜单
+│     │  │  │  ├─ router.ts ------------> 二级菜单子菜单路由配置
+│     │  │  │  ├─ store.ts -------------> 二级菜单store管理
+│     │  │  │  └─ views ----------------> 子菜单集
+│     │  │  │     └─ children ----------> 子菜单集
+│     │  │  │        └─ menu1-1 --------> 二级菜单子菜单
+│     │  │  │           ├─ api.js ------> 当前页面api
+│     │  │  │           └─ index.vue ---> 页面
+│     │  │  └─ menu2 -------------------> 二级菜单
+│     │  │     ├─ router.ts ------------> 二级菜单子菜单路由配置
+│     │  │     ├─ store.ts -------------> 二级菜单store管理
+│     │  │     └─ views ----------------> 子菜单集
+│     │  │        └─ children ----------> 子菜单集
+│     │  │           └─ menu1-1 --------> 二级菜单子菜单
+│     │  │              ├─ api.js ------> 当前页面api
+│     │  │              └─ index.vue ---> 页面
+│     │  ├─ index.ts -------------------> 当前router和store注册入口
+│     │  ├─ router.ts ------------------> 路由总入口
+│     │  └─ store.ts -------------------> 模块vuex注册
+│     └─ module2 -----------------------> 一级菜单
+│        ├─ children -------------------> 子菜单集
+│        │  └─ menu1 -------------------> 二级菜单
+│        │     ├─ router.ts ------------> 二级菜单子菜单路由配置
+│        │     ├─ store.ts -------------> 二级菜单store管理
+│        │     └─ views ----------------> 子菜单集
+│        │        └─ children ----------> 子菜单集
+│        │           └─ menu1-1 --------> 二级菜单子菜单
+│        │              ├─ api.js ------> 当前页面api
+│        │              └─ index.vue ---> 页面
+│        ├─ index.ts -------------------> 当前router和store注册入口
+│        ├─ router.ts ------------------> 路由总入口
+│        └─ store.ts -------------------> 模块vuex注册
+├─ tsconfig.json -----------------------> ts配置文件
+└─ vue.config.js -----------------------> vue cli 相关配置
+
 ```

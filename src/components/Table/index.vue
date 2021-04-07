@@ -110,7 +110,7 @@ export default {
             widthTotal :
             this.$refs.STable.getBoundingClientRect().width
         this.scroll = {
-          x,
+          x: x - 10,
           y: this.$refs.STable.getBoundingClientRect().height - 65,
         }
       },0)
@@ -194,7 +194,7 @@ export default {
   width: 100%;
 
   .s-table-content {
-    height: calc(100% - 60px);
+    height: calc(100% - 55px);
     width: 100%;
   }
   .page-info {

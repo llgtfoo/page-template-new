@@ -74,7 +74,7 @@ export default defineComponent({
   position: absolute;
   cursor: pointer;
   left: 0;
-  bottom: 25px;
+  bottom: 20px;
   > span {
     margin-left: 10px;
   }
