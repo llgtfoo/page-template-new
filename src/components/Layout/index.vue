@@ -1,227 +1,207 @@
-/** 
-*@name: 系统导航栏 即一级菜单导航栏
-* @param {type}
-*/
+/**
+ * @name:系统菜单
+ * @param {type}
+ */
 <template>
-  <div class='system-nav'>
-    <a-layout-header class="header">
+  <a-layout style="height:100%">
+    <a-layout-sider
+      v-model:collapsed="collapsed"
+      :trigger="null"
+      collapsible
+      class="menu-layout"
+    >
+      <!--系统logo-->
       <div class="logo">
-        系统名称
+        <p v-if="!collapsed">系统管理</p>
+        <icon-font
+          v-else
+          type="icon-feeds-fill"
+          style="color:#fff;fontSize:40px"
+        ></icon-font>
       </div>
       <a-menu
+        mode="inline"
         theme="dark"
-        mode="horizontal"
+        v-model:openKeys="openKeys"
         v-model:selectedKeys="selectedKeys"
-        :style="{ lineHeight: '55px' }"
-        @click='selectNav'
+        :inlineCollapsed="collapsed"
+        @click="selectedItem"
+        @openChange="onOpenChange"
       >
-        <a-menu-item
-          :key="nav.cnameKey"
-          v-for='nav in menusJson'
-        >{{nav.cname}}</a-menu-item>
-      </a-menu>
-      <div class="system-time">
-        <date-time v-slot:default="slotProps">
-          {{ slotProps.data.year }}年 {{ slotProps.data.month }}月
-          {{ slotProps.data.day }}日&nbsp;&nbsp;&nbsp;
-          {{ slotProps.data.week }}&nbsp;&nbsp;&nbsp;
-          {{ slotProps.data.time }}
-        </date-time>
-      </div>
-      <div class="login-userInfo">
-        <a-dropdown
-          placement="bottomRight"
-          :trigger="['click']"
-          v-model="visible"
-        >
-          <a-avatar style="backgroundcolor: #87d068">
-            <template #icon>
-              <UserOutlined />
-            </template>
-          </a-avatar>
-          <template #overlay>
-            <a-menu
-              theme="light"
-              mode="inline"
-              @click="infoChange"
-              v-model:selectedKeys="current"
-            >
-              <a-menu-item key="setting">
-                <UserOutlined />账户设置
-              </a-menu-item>
-              <a-sub-menu>
-                <template #title>
-                  <span class="submenu-title-wrapper">
-                    <setting-outlined />
-                    一键换肤
-                  </span>
-                </template>
-                <a-menu-item-group>
-                  <a-menu-item
-                    v-for="item in themeButton"
-                    :key="item.key"
-                  >{{
-                  item.name
-                }}</a-menu-item>
-                </a-menu-item-group>
-              </a-sub-menu>
-              <a-menu-item key="loginOut">
-                <UserOutlined />退出登录
-              </a-menu-item>
-            </a-menu>
+        <template v-for="v in menusJson">
+          <template v-if="!v.children">
+            <a-menu-item :key="v.cnameKey">
+              <icon-font
+                :type="v.icon"
+                v-if="v.icon"
+              />
+              <span>{{v.cname}}</span>
+            </a-menu-item>
           </template>
-        </a-dropdown>
-      </div>
-    </a-layout-header>
-    <div class="system-content">
-      <router-view></router-view>
-    </div>
-  </div>
+          <template v-else>
+            <sub-menu
+              :menuInfo="v"
+              :key="v.cnameKey"
+            />
+          </template>
+        </template>
+      </a-menu>
+    </a-layout-sider>
+    <a-layout>
+      <!-- 导航栏 -->
+      <system-nav
+        v-model:collapsed="collapsed"
+        :systemName='systemName'
+      ></system-nav>
+      <!-- 内容区 -->
+      <a-layout-content
+        class="layout-content"
+        :style="{margin: '10px'}"
+      >
+        <router-view></router-view>
+      </a-layout-content>
+    </a-layout>
+  </a-layout>
 </template>
-
-<script lang="ts">
+<script>
 import menusJson from 'mock/menus/index.json'
-import { defineComponent, reactive, ref, toRefs, watchEffect, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 import {
-  SettingOutlined,
-  UserOutlined,
-} from "@ant-design/icons-vue"
+  createFromIconfontCN,
+} from '@ant-design/icons-vue'
+import { computed,defineComponent,reactive,toRefs,watch } from 'vue'
+import { useRoute,useRouter } from 'vue-router'
+//阿里图标库引用
+const IconFont = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_2287282_0cednzk5tnru.js',
+})
+//菜单无限循环生成
+const SubMenu = {
+  name: 'SubMenu',
+  props: {
+    menuInfo: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  components: {
+    'icon-font': IconFont,
+  },
+  template: `
+   <a-sub-menu :key="menuInfo.cnameKey" v-bind="$attrs">
+     <template #title>
+        <span>
+        <icon-font :type="menuInfo.icon" v-if='menuInfo.icon'/>
+         <span>{{menuInfo.cname }}</span>
+        </span>
+      </template>
+     <template v-for="v in menuInfo.children" :key="v.cnameKey">
+        <template v-if="!v.children">
+         <a-menu-item :key="v.cnameKey">
+         <icon-font :type="v.icon" v-if='v.icon'/>
+            <span>{{v.cname}}</span>
+          </a-menu-item>
+        </template>
+        <template v-else>
+         <sub-menu :menu-info="v" :key="v.cnameKey" />
+        </template>
+    </template>
+    </a-sub-menu>
+  `,
+}
+
 export default defineComponent({
   name: 'Layout',
   components: {
-    UserOutlined,
-    SettingOutlined,
+    'sub-menu': SubMenu,
+    'icon-font': IconFont,
   },
   setup() {
     const route = useRoute()
     const router = useRouter()
-    const store = useStore()
+    // console.log(route, router, route.fullPath)
     const state = reactive({
-      menusJson,//菜单mock
-      selectedKeys: [route.matched[0].path],//选中菜单
+      current: ['setting:1'],
       visible: false,
-      current: [],
-      themeButton: [
-        {
-          key: "default",
-          name: "蓝色",
-        },
-        {
-          key: "red",
-          name: "红色",
-        },
-        {
-          key: "green",
-          name: "绿色",
-        },
-        {
-          key: "deepBlue",
-          name: "深蓝色",
-        },
-      ], //换肤类型
+      menusJson, //mock数据
+      collapsed: false,
+      openKeys: [route.matched[0].path], //根据路由打开菜单
+      selectedKeys: [route.fullPath], //根据路由选中菜单
     })
-
-    //监测路由变化获取选中菜单和存储二级菜单
-    watchEffect(() => {
-      state.selectedKeys = [route.matched[0].path]
-      //存储二级菜单
-      const menus = state.menusJson.filter(ele => {
-        return ele.cnameKey === route.matched[0].path
-      })
-      //存储二级菜单c
-      store.dispatch('common/user/doCurrentMenu', menus[0])
+    //当前选择菜单名称
+    const systemName = computed(() => {
+      return route.meta.name
     })
-    //点击一级菜单导航
-    function selectNav({ item, key, keyPath }) {
-      router.push(key)
-      const menus = state.menusJson.filter(ele => {
-        return ele.cnameKey === key
-      })
-      //存储二级菜单
-      store.dispatch('common/user/doCurrentMenu', menus[0])
-    }
-    //当前主题
-    const currentTheme = computed(() => {
-      return store.getters["common/user/userTheme"]
-    })
-    onMounted(() => {
-      const current = state.themeButton.filter((v) => v.key === currentTheme.value)
-      state.current = [current.length > 0 ? current[0].key : ""]
-    })
-    // 换肤事件
-    const infoChange = function (e) {
-      if (e.key === "setting") {
-      } else if (e.key === "loginOut") {
-        localStorage.removeItem("token")
-        router.push("/login")
+    //监测菜单收缩
+    watch(() => state.collapsed,(newVal) => {
+      if (newVal) {
+        state.openKeys = []
       } else {
-        state.current = [e.key]
-        store.dispatch("common/user/doSetTheme", e.key)
+        state.openKeys = [route.matched[0].path]
+      }
+    })
+    //控制只打开一个菜单组
+    const onOpenChange = (openKeys) => {
+      if (openKeys.length !== 0) {
+        state.openKeys = [openKeys[1]]
+      } else {
+        state.openKeys = ['']
       }
     }
-    return {
-      ...toRefs(state),
-      selectNav,
-      infoChange
+    //点击跳转
+    // eslint-disable-next-line no-unused-vars
+    const selectedItem = ({ item,key,keyPath }) => {
+      router.push(key)
     }
-  }
+
+    const infoChange = function (e) {
+      state.current = [e.key]
+    }
+    return {
+      systemName,
+      onOpenChange,
+      selectedItem,
+      infoChange,
+      ...toRefs(state),
+    }
+  },
 })
 </script>
-
-<style scoped lang='scss'>
-.system-nav {
-  width: 100%;
-  height: 100%;
-  min-width: 1000px;
-  .ant-layout-header {
-    height: 55px;
-    line-height: 55px;
+<style lang='less' scoped>
+.layout-content {
+  background: #fff;
+  padding: 20px;
+  margin: 0;
+  overflow: hidden;
+  min-width: 800px;
+  padding-bottom: 0px;
+}
+.menu-layout {
+  // /deep/.ant-layout-sider-trigger {
+  //   background: rgba(24, 144, 255, 0.8);
+  // }
+  .logo {
+    height: 50px;
+    background: var(--primary-color);
+    // margin: 5px;
     display: flex;
     align-items: center;
-    background: var(--header-top-bg-color);
-    padding: 0;
-    .ant-menu-item {
-      letter-spacing: 2px;
-      color: #fff;
-    }
-    .ant-menu-dark {
-      background: var(--header-top-bg-color);
-    }
-    .logo {
-      color: #fff;
+    justify-content: center;
+    p {
+      margin-bottom: 0px;
+      font-size: 16px;
       font-weight: bolder;
-      font-size: 22px;
-      // margin-right: 50px;
-      width: 200px;
-      text-align: center;
-      // background: #001529;
-    }
-    .system-time {
       color: #fff;
-      margin-left: auto;
-      margin-right: 60px;
-      font-size: 20px;
-      font-weight: bolder;
-      height: 50px;
-      line-height: 50px;
-    }
-    .login-userInfo {
-      margin-right: 20px;
-      cursor: pointer;
     }
   }
-  .system-content {
-    height: calc(100% - 55px);
-  }
-  .ant-menu-item-selected {
-    font-weight: bold;
-    letter-spacing: 2px;
-  }
-  .ant-dropdown-menu-item-selected {
-    background: var(--primary-color);
-    color: #fff;
-  }
+}
+</style>
+<style>
+.menu-layout .anticon {
+  margin-right: 6px !important;
+  font-size: 20px !important;
+  vertical-align: -0.185em !important;
+}
+.logo .anticon {
+  font-size: 40px !important;
 }
 </style>

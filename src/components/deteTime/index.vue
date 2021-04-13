@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, reactive, toRefs, onMounted, onUnmounted } from 'vue'
 
 export default defineComponent({
@@ -37,20 +37,20 @@ export default defineComponent({
       const yy = String(myDate.getFullYear())
       const mm = myDate.getMonth() + 1
       const dd = String(
-        myDate.getDate() < 10 ? `0${myDate.getDate()}` : myDate.getDate()
+        myDate.getDate() < 10 ? `0${myDate.getDate()}` : myDate.getDate(),
       )
       const hou = String(
-        myDate.getHours() < 10 ? `0${myDate.getHours()}` : myDate.getHours()
+        myDate.getHours() < 10 ? `0${myDate.getHours()}` : myDate.getHours(),
       )
       const min = String(
         myDate.getMinutes() < 10 ?
           `0${myDate.getMinutes()}` :
-          myDate.getMinutes()
+          myDate.getMinutes(),
       )
       const sec = String(
         myDate.getSeconds() < 10 ?
           `0${myDate.getSeconds()}` :
-          myDate.getSeconds()
+          myDate.getSeconds(),
       )
       const weeks = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
       const week = weeks[wk]
@@ -66,7 +66,7 @@ export default defineComponent({
       }
     }
     return { ...toRefs(state), setNowTimes }
-  }
+  },
 })
 </script>
 

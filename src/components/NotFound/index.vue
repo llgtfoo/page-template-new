@@ -13,12 +13,14 @@
     <a-button
       type="primary"
       @click="$router.replace('/')"
-    >返回首页</a-button>
+    >
+      返回首页
+    </a-button>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script >
+import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'NotFound',
 })

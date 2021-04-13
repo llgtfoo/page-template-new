@@ -13,10 +13,10 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, ref, onMounted, onUnmounted, getCurrentInstance, watch } from 'vue'
 
-import doAnimation from '@/utils/doAnimation.js'
+import doAnimation from 'utils/doAnimation.js'
 
 export default defineComponent({
   name: 'EchartCommon',
@@ -27,7 +27,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const proxy: any = getCurrentInstance().proxy//获取App全局变量
+    const { proxy } = getCurrentInstance()//获取App全局变量
     const chart = ref(null)
     const animate = ref(null)
     const echartCommon = ref(null)//注册ref获取dom
@@ -72,7 +72,7 @@ export default defineComponent({
       })
     }
     return { chart, animate, updateChartView, echartCommon }
-  }
+  },
 })
 </script>
 

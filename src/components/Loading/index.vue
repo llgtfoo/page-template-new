@@ -13,15 +13,16 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import styles from './index.module.scss';
+<script >
+import styles from './index.module.scss'
+
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: "Loading",
+  name: 'Loading',
   data() {
     return {
-      styles
+      styles,
     }
-  }
+  },
 })
 </script>

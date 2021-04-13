@@ -12,8 +12,8 @@
     <p class="msg-notData">暂无数据</p>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script>
+import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'NotData',
 })
