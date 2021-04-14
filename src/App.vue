@@ -19,13 +19,15 @@
 </template>
 
 <script>
-import { defineComponent,ref,getCurrentInstance,computed } from 'vue'
+import { defineComponent,ref,computed } from 'vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 export default defineComponent({
   setup() {
-    const proxy = getCurrentInstance().proxy//获取App全局变量
+    const store = useRoute()
     const theme = computed(() => {
-      return proxy.$store.getters['common/user/userTheme']
+      return store.getters['common/user/userTheme']
     })
     return { locale: ref(zhCN),theme }
   },
