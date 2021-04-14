@@ -22,10 +22,9 @@
 import { defineComponent,ref,computed } from 'vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
 export default defineComponent({
   setup() {
-    const store = useRoute()
+    const store = useStore()
     const theme = computed(() => {
       return store.getters['common/user/userTheme']
     })
