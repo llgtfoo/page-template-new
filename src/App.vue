@@ -1,9 +1,21 @@
 <template>
-  <a-config-provider :locale="locale">
-    <div class="wrapper">
-      <router-view></router-view>
-    </div>
-  </a-config-provider>
+  <theme-provider
+    id="app"
+    :theme="theme"
+  >
+    <a-config-provider :locale="locale">
+      <div class="wrapper">
+        <router-view v-slot="{ Component, route }">
+          <keep-alive>
+            <component
+              :is="Component"
+              :route="route"
+            />
+          </keep-alive>
+        </router-view>
+      </div>
+    </a-config-provider>
+  </theme-provider>
 </template>
 
 <script setup>
@@ -15,6 +27,7 @@ const theme = computed(() => {
   return store.getters['common/user/userTheme']
 })
 const locale = ref(zhCN)
+
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
   <div class="login-wraper">
     <div class="login-form">
       <div class="login-logo">
-        <svg-icons icon-class="logo"></svg-icons>
+        <img :src='logo' />
         <p class="logo-text">系统名称</p>
       </div>
       <div class="login-right-form">
@@ -78,7 +78,8 @@
 </template>
 
 <script setup>
-import { defineComponent,reactive,ref,onMounted,watch } from "vue"
+import logo from '../../assets/svg/logo.svg'
+import { reactive,ref,onMounted,watch } from "vue"
 import { UserOutlined,LockOutlined } from "@ant-design/icons-vue"
 import { useRoute,useRouter } from "vue-router"
 const labelCol = { span: 6,offset: 3 }

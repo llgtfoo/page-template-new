@@ -108,7 +108,6 @@ const SubMenu = {
     </a-sub-menu>
   `,
 }
-
 export default defineComponent({
   name: 'Layout',
   components: {
@@ -134,7 +133,7 @@ export default defineComponent({
     //监测菜单收缩
     watch(() => state.collapsed,(newVal) => {
       if (newVal) {
-        state.openKeys = []
+        // state.openKeys = []
       } else {
         state.openKeys = [route.matched[0].path]
       }

@@ -12,7 +12,7 @@
     <p class="msg-404">抱歉，你访问的页面不存在！</p>
     <a-button
       type="primary"
-      @click="$router.replace('/')"
+      @click="$router.replace('/home')"
     >
       返回首页
     </a-button>

@@ -21,6 +21,7 @@ export default defineConfig({
   //起别名配置
   resolve: {
     alias: {
+      'vue': 'vue/dist/vue.esm-bundler.js',//编译template组件
       "/@": path.resolve(__dirname, "src"),//跟目录
       comps: path.join(__dirname, "src/components"), //组件
       dcts: path.join(__dirname, "src/directives"), //指令
@@ -32,11 +33,9 @@ export default defineConfig({
   //服务器配置
   server: {
     proxy: {
-      // with options
       "/api": {
         target: "http://jsonplaceholder.typicode.com",
         changeOrigin: true,
-
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
