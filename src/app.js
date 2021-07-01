@@ -11,7 +11,7 @@ import components from './components/index' //全局组件
 import directives from './directives/index' //全局指令
 import axiosPlugin from './http/axios' //axios请求协议
 import http from './http/index' //自定义post和get协议
-import './permission' //路由守卫
+//import './permission' //路由守卫
 import router from './router' //路由
 import store from './store' //状态管理
 import utils from './utils/index' //全局工具函数
