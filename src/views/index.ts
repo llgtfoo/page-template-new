@@ -16,7 +16,7 @@ const initRoute = [
   {
     path: '/',
     name: 'root',
-    redirect: '/module1',
+    redirect: '/login',
   },
   {
     path: '/login',
