@@ -5,9 +5,9 @@
   "description": "{{description}}",
   "author": "{{author}}",
   "scripts": {
-    "dev": "vite",
+    "serve": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "dev": "vite preview"
   },
   "dependencies": {
     "ant-design-vue": "^2.1.2",
