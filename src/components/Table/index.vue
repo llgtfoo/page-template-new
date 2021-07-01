@@ -136,7 +136,7 @@ export default {
             },
           }
         },
-        style: { width: `calc(100% - 0px)`,height：'100%' },
+        style: { width: `calc(100% - 0px)`,height:'100%' },
         rowSelection: {
           hideDefaultSelections: true,
           onChange: this.onSelectChange,
