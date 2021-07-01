@@ -10,7 +10,7 @@ router.beforeEach(async (to, from, next) => {
   if (hasToken) {
     if (to.path === '/login') {
       // 若已登录没有必要显示登录页，重定向至首页
-      next('/')
+      next('/login')
     } else {
       next()
       // console.log('hasRoles')
