@@ -1,17 +1,19 @@
-import http from 'http/index'
+import http from "http/index"
 // 定义action type
-export const LOGIN = 'LOGIN'
+export const LOGIN = "LOGIN"
 // 指定对应api
 export const api = {
   [LOGIN]: `/login`, // 登录
 }
 // 初始化store对象
 const state = {
-  userInfo: { //用户信息
-    orgId: '1',
+  userInfo: {
+    //用户信息
+    orgId: "1",
+    name: "李四",
   },
   currentMenu: {}, //当前菜单项
-  userTheme: 'default', //主题
+  userTheme: "default", //主题
 }
 
 // 异步操作放到action handler里
@@ -20,9 +22,9 @@ const actions = {
     return new Promise(async (resolve, reject) => {
       try {
         const rst = await http.post(api[LOGIN], payload)
-        if (rst.code === '200') {
+        if (rst.code === "200") {
           const { sessionId, user } = rst.data // eslint-disable-line
-          commit('SET_USER_INFO', user)
+          commit("SET_USER_INFO", user)
           resolve(rst)
         }
       } catch (error) {
@@ -32,10 +34,10 @@ const actions = {
   },
   //异步更新当前菜单
   doCurrentMenu({ commit }, payload) {
-    commit('SET_CURRENT_MENU', payload)
+    commit("SET_CURRENT_MENU", payload)
   },
-   doSetTheme({ commit }, payload) {
-    commit('SET_USER_THEME', payload)
+  doSetTheme({ commit }, payload) {
+    commit("SET_USER_THEME", payload)
   },
 }
 
