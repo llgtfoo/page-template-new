@@ -33,9 +33,10 @@
         :trigger="['click']"
         v-model="visible"
       >
-        <a-avatar style="backgroundcolor: #87d068">
+        <a-avatar class="messages">
           <template #icon>
-            <UserOutlined />
+            {{userInfo.name}}
+            <CaretDownFilled />
           </template>
         </a-avatar>
         <template #overlay>
@@ -44,29 +45,35 @@
             mode="inline"
             @click="infoChange"
             v-model:selectedKeys="current"
+            style="width: 150px"
           >
+            <a-menu-item>
+              <setting-outlined />
+              一键换肤
+            </a-menu-item>
+            <ul :style="{display:'flex','justify-content':'space-around'}">
+              <li
+                v-for="item in themeButton"
+                :key="item.key"
+                @click="handleTheme(item.key)"
+                :style="{
+                      background:item.color,
+                      width:'20px',
+                      height:'20px',
+                      display:'flex',
+                      'justify-content':'center',
+                      'align-items': 'center',
+                      color: '#fff'}"
+              >
+                <CheckOutlined v-if="current[0]===item.key" />
+              </li>
+            </ul>
             <a-menu-item key="setting">
               <UserOutlined />账户设置
             </a-menu-item>
             <a-menu-item key="loginOut">
               <UserOutlined />退出登录
             </a-menu-item>
-            <a-sub-menu>
-              <template #title>
-                <span class="submenu-title-wrapper">
-                  <setting-outlined />
-                  一键换肤
-                </span>
-              </template>
-              <a-menu-item-group>
-                <a-menu-item
-                  v-for="item in themeButton"
-                  :key="item.key"
-                >{{
-                  item.name
-                }}</a-menu-item>
-              </a-menu-item-group>
-            </a-sub-menu>
           </a-menu>
         </template>
       </a-dropdown>
@@ -90,6 +97,8 @@ import {
   UserOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  CaretDownFilled,
+  CheckOutlined,
 } from "@ant-design/icons-vue"
 export default defineComponent({
   name: 'SystemNav',
@@ -106,6 +115,8 @@ export default defineComponent({
     UserOutlined,
     MenuUnfoldOutlined,
     SettingOutlined,
+    CaretDownFilled,
+    CheckOutlined,
   },
   setup(props) {
     const _this = getCurrentInstance().proxy
@@ -115,26 +126,34 @@ export default defineComponent({
       current: [],
       themeButton: [
         {
-          key: "default",
-          name: "蓝色",
+          key: 'default',
+          name: '蓝色',
+          color: '#1890ff',
         },
         {
-          key: "red",
-          name: "红色",
+          key: 'red',
+          name: '红色',
+          color: '#bf291b',
         },
         {
-          key: "green",
-          name: "绿色",
+          key: 'green',
+          name: '绿色',
+          color: 'green',
         },
         {
-          key: "deepBlue",
-          name: "深蓝色",
+          key: 'deepBlue',
+          name: '深蓝色',
+          color: '#003580',
         },
       ], //换肤类型
     })
     //当前主题
     const currentTheme = computed(() => {
       return _this.$store.getters["common/user/userTheme"]
+    })
+    //获取用户信息
+    const userInfo = computed(() => {
+      return _this.$store.getters['common/user/userInfo']
     })
     onMounted(() => {
       const current = state.themeButton.filter((v) => v.key === currentTheme.value)
@@ -147,14 +166,18 @@ export default defineComponent({
         localStorage.removeItem("token")
         router.push("/login")
       } else {
-        state.current = [e.key]
-        _this.$store.dispatch("common/user/doSetTheme",e.key)
+        return
       }
+    }
+    //换肤设置
+    const handleTheme = (value) => {
+      state.current = [value]
+      _this.$store.dispatch('common/user/doSetTheme',value)
     }
     return {
       ...toRefs(state),
       infoChange,
-      currentTheme,
+      currentTheme,userInfo,handleTheme
     }
   },
 })
@@ -195,6 +218,23 @@ export default defineComponent({
   .login-userInfo {
     margin-right: 20px;
     cursor: pointer;
+    position: relative;
+    .messages {
+      // width: 60px;
+      letter-spacing: 3px;
+      width: max-content;
+      padding: 0 20px 0 10px;
+      box-sizing: border-box;
+      border-radius: 1px;
+      background: rgba(130, 173, 236, 0.2);
+      position: relative;
+      /deep/.anticon-caret-down {
+        position: absolute;
+        right: 1px;
+        top: 8px;
+        opacity: 0.5;
+      }
+    }
   }
 }
 .ant-dropdown-menu-item-selected {
