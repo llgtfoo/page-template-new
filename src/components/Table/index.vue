@@ -110,7 +110,7 @@ export default {
             widthTotal :
             this.$refs.STable.getBoundingClientRect().width
         this.scroll = {
-          x,
+          x:x-2,
           y: this.$refs.STable.getBoundingClientRect().height - 65,
         }
       },0)
@@ -136,7 +136,7 @@ export default {
             },
           }
         },
-        style: { width: `calc(100% - 0px)` },
+        style: { width: `calc(100% - 0px)` ,height:'100%'},
         rowSelection: {
           hideDefaultSelections: true,
           onChange: this.onSelectChange,
@@ -159,8 +159,9 @@ export default {
         showSizeChanger: true,
         showQuickJumper: true,
         total: this.total,
-        defaultCurrent: this.currentPage,
-        defaultPageSize: this.pageSize,
+        //defaultCurrent: this.currentPage,
+        //defaultPageSize: this.pageSize,
+        current: this.currentPage,
         pageSize: this.currentPageSize,
         pageSizeOptions: this.pageSizeOptions,
         showTotal: (total) => {
@@ -204,18 +205,20 @@ export default {
     justify-content: center;
   }
 }
-/deep/.ant-table-body {
+</style>
+<style lang='scss'>
+.s-table .ant-table-body {
   overflow: auto !important;
-  // overflow-y: auto !important;
+  overflow-x: scroll !important; 
+  height: 1000px;
+  border: 1px solid #f0f0f0;
+  box-sizing: border-box;
 }
-/deep/.ant-table-body-inner {
-  overflow: auto !important;
+.s-table .ant-table-body-inner {
+  overflow-y: auto !important;
 }
-/deep/.ant-table td,
-/deep/.ant-table th {
+.s-table .ant-table td,
+.s-table .ant-table th {
   white-space: nowrap !important;
 }
-// .ant-table-tbody > tr > td {
-//   white-space: break-spaces;
-// }
 </style>
