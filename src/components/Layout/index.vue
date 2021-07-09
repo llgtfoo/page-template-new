@@ -1,9 +1,9 @@
-/** 
+/**
 *@name: 系统导航栏 即一级菜单导航栏
 * @param {type}
 */
 <template>
-  <div class='system-nav'>
+  <div class="system-nav">
     <a-layout-header class="header">
       <div class="logo">
         系统名称
@@ -13,19 +13,21 @@
         mode="horizontal"
         v-model:selectedKeys="selectedKeys"
         :style="{ lineHeight: '55px' }"
-        @click='selectNav'
+        @click="selectNav"
       >
         <a-menu-item
           :key="nav.cnameKey"
-          v-for='nav in menusJson'
-        >{{nav.cname}}</a-menu-item>
+          v-for="nav in menusJson"
+        >
+          {{nav.cname}}
+        </a-menu-item>
       </a-menu>
       <div class="system-time">
         <date-time v-slot:default="slotProps">
-          {{ slotProps.data.year }}年 {{ slotProps.data.month }}月
-          {{ slotProps.data.day }}日&nbsp;&nbsp;&nbsp;
-          {{ slotProps.data.week }}&nbsp;&nbsp;&nbsp;
-          {{ slotProps.data.time }}
+          {{slotProps.data.year}}年 {{slotProps.data.month}}月
+          {{slotProps.data.day}}日&nbsp;&nbsp;&nbsp;
+          {{slotProps.data.week}}&nbsp;&nbsp;&nbsp;
+          {{slotProps.data.time}}
         </date-time>
       </div>
       <div class="login-userInfo">
@@ -34,9 +36,10 @@
           :trigger="['click']"
           v-model="visible"
         >
-          <a-avatar style="backgroundcolor: #87d068">
+          <a-avatar class="messages">
             <template #icon>
-              <UserOutlined />
+              {{userInfo.name}}
+              <CaretDownFilled />
             </template>
           </a-avatar>
           <template #overlay>
@@ -45,26 +48,32 @@
               mode="inline"
               @click="infoChange"
               v-model:selectedKeys="current"
+              style="width: 150px"
             >
+              <a-menu-item>
+                <setting-outlined />
+                一键换肤
+              </a-menu-item>
+              <ul :style="{display:'flex','justify-content':'space-around'}">
+                <li
+                  v-for="item in themeButton"
+                  :key="item.key"
+                  @click="handleTheme(item.key)"
+                  :style="{
+                      background:item.color,
+                      width:'20px',
+                      height:'20px',
+                      display:'flex',
+                      'justify-content':'center',
+                      'align-items': 'center',
+                      color: '#fff'}"
+                >
+                  <CheckOutlined v-if="current[0]===item.key" />
+                </li>
+              </ul>
               <a-menu-item key="setting">
                 <UserOutlined />账户设置
               </a-menu-item>
-              <a-sub-menu>
-                <template #title>
-                  <span class="submenu-title-wrapper">
-                    <setting-outlined />
-                    一键换肤
-                  </span>
-                </template>
-                <a-menu-item-group>
-                  <a-menu-item
-                    v-for="item in themeButton"
-                    :key="item.key"
-                  >{{
-                  item.name
-                }}</a-menu-item>
-                </a-menu-item-group>
-              </a-sub-menu>
               <a-menu-item key="loginOut">
                 <UserOutlined />退出登录
               </a-menu-item>
@@ -86,39 +95,45 @@ import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import {
   SettingOutlined,
-  UserOutlined,
-} from "@ant-design/icons-vue"
+  UserOutlined, CaretDownFilled, CheckOutlined,
+} from '@ant-design/icons-vue'
 export default defineComponent({
   name: 'Layout',
   components: {
     UserOutlined,
     SettingOutlined,
+    CaretDownFilled,
+    CheckOutlined,
   },
   setup() {
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
     const state = reactive({
-      menusJson,//菜单mock
-      selectedKeys: [route.matched[0].path],//选中菜单
+      menusJson, //菜单mock
+      selectedKeys: [route.matched[0].path], //选中菜单
       visible: false,
       current: [],
       themeButton: [
         {
-          key: "default",
-          name: "蓝色",
+          key: 'default',
+          name: '蓝色',
+          color: '#1890ff',
         },
         {
-          key: "red",
-          name: "红色",
+          key: 'red',
+          name: '红色',
+          color: '#bf291b',
         },
         {
-          key: "green",
-          name: "绿色",
+          key: 'green',
+          name: '绿色',
+          color: 'green',
         },
         {
-          key: "deepBlue",
-          name: "深蓝色",
+          key: 'deepBlue',
+          name: '深蓝色',
+          color: '#003580',
         },
       ], //换肤类型
     })
@@ -144,29 +159,40 @@ export default defineComponent({
     }
     //当前主题
     const currentTheme = computed(() => {
-      return store.getters["common/user/userTheme"]
+      return store.getters['common/user/userTheme']
+    })
+    //获取用户信息
+    const userInfo = computed(() => {
+      return store.getters['common/user/userInfo']
     })
     onMounted(() => {
       const current = state.themeButton.filter((v) => v.key === currentTheme.value)
-      state.current = [current.length > 0 ? current[0].key : ""]
+      state.current = [current.length > 0 ? current[0].key : '']
+      console.log(state.current)
     })
-    // 换肤事件
+    // 用户菜单设置
     const infoChange = function (e) {
-      if (e.key === "setting") {
-      } else if (e.key === "loginOut") {
-        localStorage.removeItem("token")
-        router.push("/login")
+      if (e.key === 'setting') {
+      } else if (e.key === 'loginOut') {
+        localStorage.removeItem('token')
+        router.push('/login')
       } else {
-        state.current = [e.key]
-        store.dispatch("common/user/doSetTheme", e.key)
+        return
       }
+    }
+    //换肤设置
+    const handleTheme = (value) => {
+      state.current = [value]
+      store.dispatch('common/user/doSetTheme', value)
     }
     return {
       ...toRefs(state),
       selectNav,
-      infoChange
+      infoChange,
+      userInfo,
+      handleTheme,
     }
-  }
+  },
 })
 </script>
 
@@ -197,9 +223,11 @@ export default defineComponent({
       width: 200px;
       text-align: center;
       // background: #001529;
+      letter-spacing: 3px;
     }
     .system-time {
       color: #fff;
+
       margin-left: auto;
       margin-right: 60px;
       font-size: 20px;
@@ -210,6 +238,23 @@ export default defineComponent({
     .login-userInfo {
       margin-right: 20px;
       cursor: pointer;
+      position: relative;
+      .messages {
+        // width: 60px;
+        letter-spacing: 3px;
+        width: max-content;
+        padding: 0 20px 0 10px;
+        box-sizing: border-box;
+        border-radius: 1px;
+        background: rgba(130, 173, 236, 0.2);
+        position: relative;
+        /deep/.anticon-caret-down {
+          position: absolute;
+          right: 1px;
+          top: 8px;
+          opacity: 0.5;
+        }
+      }
     }
   }
   .system-content {
