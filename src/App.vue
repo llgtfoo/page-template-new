@@ -6,12 +6,14 @@
     <a-config-provider :locale="locale">
       <div class="wrapper">
         <router-view v-slot="{ Component, route }">
-          <keep-alive>
+          <keep-alive v-if="Component&&Object.keys(Component).length>0">
             <component
               :is="Component"
               :route="route"
-            />
+            >
+            </component>
           </keep-alive>
+          <loading v-else></loading>
         </router-view>
       </div>
     </a-config-provider>
