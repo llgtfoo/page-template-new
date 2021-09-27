@@ -1,17 +1,10 @@
 <template>
-  <theme-provider
-    id="app"
-    :theme="theme"
-  >
+  <theme-provider id="app" :theme="theme">
     <a-config-provider :locale="locale">
       <div class="wrapper">
         <router-view v-slot="{ Component, route }">
-          <keep-alive v-if="Component&&Object.keys(Component).length>0">
-            <component
-              :is="Component"
-              :route="route"
-            >
-            </component>
+          <keep-alive v-if="Component && Object.keys(Component).length > 0">
+            <component :is="Component" :route="route"> </component>
           </keep-alive>
           <loading v-else></loading>
         </router-view>
