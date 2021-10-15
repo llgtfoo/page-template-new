@@ -6,7 +6,7 @@ export default () => (
     component: () => import('comps/Layout/index.vue'),
     redirect: '/home/index1',
     meta: {
-      name: '模块一'
+      name: '模块一',
     },
     children: [
       {
@@ -14,17 +14,17 @@ export default () => (
         name: 'index1',
         component: () => import('./views/children/menu-1/index.vue'),
         meta: {
-          name: '菜单一'
-        }
+          name: '菜单一',
+        },
       },
       {
         path: '/home/index2',
         name: 'index2',
         component: () => import('./views/children/menu-2/index.vue'),
         meta: {
-          name: '菜单二'
-        }
-      }
+          name: '菜单二',
+        },
+      },
     ],
   }
 )

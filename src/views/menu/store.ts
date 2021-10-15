@@ -4,8 +4,8 @@ const importAll = (context: any) => {
     const keyArr = key.split('/')
     keyArr.shift() // 移除.
     if (keyArr[2]) {
-      map[keyArr[2]]
-        = context(key) && context(key).default
+      map[keyArr[2]] =
+        context(key) && context(key).default
     }
   }
   return map

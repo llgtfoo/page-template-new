@@ -4,7 +4,7 @@
  */
 <template>
   <!-- 菜单栏 -->
-  <a-layout style="height:100%">
+  <a-layout style="height: 100%">
     <a-layout-sider
       v-model:collapsed="collapsed"
       :trigger="null"
@@ -17,7 +17,7 @@
         <icon-font
           v-else
           type="icon-feeds-fill"
-          style="color:#fff;fontSize:40px"
+          style="color: #fff; fontsize: 40px"
         ></icon-font>
       </div>
       <a-menu
@@ -32,18 +32,12 @@
         <template v-for="v in menusJson">
           <template v-if="!v.children">
             <a-menu-item :key="v.cnameKey">
-              <icon-font
-                :type="v.icon"
-                v-if="v.icon"
-              />
-              <span>{{v.cname}}</span>
+              <icon-font :type="v.icon" v-if="v.icon" />
+              <span>{{ v.cname }}</span>
             </a-menu-item>
           </template>
           <template v-else>
-            <sub-menu
-              :menuInfo="v"
-              :key="v.cnameKey"
-            />
+            <sub-menu :menuInfo="v" :key="v.cnameKey" />
           </template>
         </template>
       </a-menu>
@@ -52,13 +46,10 @@
       <!-- 导航栏 -->
       <system-nav
         v-model:collapsed="collapsed"
-        :systemName='systemName'
+        :systemName="systemName"
       ></system-nav>
       <!-- 内容区 -->
-      <a-layout-content
-        class="layout-content"
-        :style="{margin: '10px'}"
-      >
+      <a-layout-content class="layout-content" :style="{ margin: '10px' }">
         <router-view></router-view>
       </a-layout-content>
     </a-layout>

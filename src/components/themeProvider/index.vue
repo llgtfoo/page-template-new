@@ -3,11 +3,7 @@
  * @param {type}
  */
 <template>
-  <div
-    class="theme-wrapper"
-    :style="`--theme:${theme};`"
-    v-show="themeLoaded"
-  >
+  <div class="theme-wrapper" :style="`--theme:${theme};`" v-show="themeLoaded">
     <slot />
   </div>
 </template>

@@ -1,3 +1,4 @@
+
 const req = require.context('./', true, /\.vue$/)
 import { formatComponentName } from '../utils/index'
 export default {

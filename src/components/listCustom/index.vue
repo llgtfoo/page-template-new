@@ -4,25 +4,21 @@
  */
 <template>
   <div class="list-custom-list">
-    <a-dropdown
-      placement="topLeft"
-      :trigger="['click']"
-      v-model="visible"
-    >
-      <div @click="e => e.preventDefault()">
+    <a-dropdown placement="topLeft" :trigger="['click']" v-model="visible">
+      <div @click="(e) => e.preventDefault()">
         <UnorderedListOutlined />
-        <span style="margin-left:5px;">列表自定义</span>
+        <span style="margin-left: 5px">列表自定义</span>
       </div>
       <template #overlay>
         <a-menu>
           <a-checkbox
-            v-for="(v,i) in columns"
+            v-for="(v, i) in columns"
             :key="i"
             :checked="v.show"
-            @change="e=>onChange(e,v)"
-            :disabled="v.show&&disabled"
+            @change="(e) => onChange(e, v)"
+            :disabled="v.show && disabled"
           >
-            {{v.title}}
+            {{ v.title }}
           </a-checkbox>
         </a-menu>
       </template>

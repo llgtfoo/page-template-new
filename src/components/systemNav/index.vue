@@ -35,7 +35,7 @@
       >
         <a-avatar class="messages">
           <template #icon>
-            {{userInfo.name}}
+            {{ userInfo.name }}
             <CaretDownFilled />
           </template>
         </a-avatar>
@@ -51,29 +51,26 @@
               <setting-outlined />
               一键换肤
             </a-menu-item>
-            <ul :style="{display:'flex','justify-content':'space-around'}">
+            <ul :style="{ display: 'flex', 'justify-content': 'space-around' }">
               <li
                 v-for="item in themeButton"
                 :key="item.key"
                 @click="handleTheme(item.key)"
                 :style="{
-                      background:item.color,
-                      width:'20px',
-                      height:'20px',
-                      display:'flex',
-                      'justify-content':'center',
-                      'align-items': 'center',
-                      color: '#fff'}"
+                  background: item.color,
+                  width: '20px',
+                  height: '20px',
+                  display: 'flex',
+                  'justify-content': 'center',
+                  'align-items': 'center',
+                  color: '#fff',
+                }"
               >
-                <CheckOutlined v-if="current[0]===item.key" />
+                <CheckOutlined v-if="current[0] === item.key" />
               </li>
             </ul>
-            <a-menu-item key="setting">
-              <UserOutlined />账户设置
-            </a-menu-item>
-            <a-menu-item key="loginOut">
-              <UserOutlined />退出登录
-            </a-menu-item>
+            <a-menu-item key="setting"> <UserOutlined />账户设置 </a-menu-item>
+            <a-menu-item key="loginOut"> <UserOutlined />退出登录 </a-menu-item>
           </a-menu>
         </template>
       </a-dropdown>
@@ -172,12 +169,12 @@ export default defineComponent({
     //换肤设置
     const handleTheme = (value) => {
       state.current = [value]
-      _this.$store.dispatch('common/user/doSetTheme',value)
+      _this.$store.dispatch('common/user/doSetTheme', value)
     }
     return {
       ...toRefs(state),
       infoChange,
-      currentTheme,userInfo,handleTheme
+      currentTheme, userInfo, handleTheme
     }
   },
 })

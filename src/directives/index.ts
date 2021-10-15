@@ -9,5 +9,5 @@ export default {
         Vue.use(ele.default)
       }
     })
-  }
+  },
 }

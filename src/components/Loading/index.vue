@@ -14,7 +14,7 @@
   </div>
 </template>
 <script lang="ts">
-import styles from './index.module.scss';
+import styles from './index.module.scss'
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: "Loading",
