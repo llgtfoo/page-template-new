@@ -5,12 +5,12 @@
 export const formatComponentName = (name: string) => {
   const firstIndex = 0
   const deleteCount = 1
-  if(!name){
+  if (!name) {
     console.error('存在未指定name的组件')
     return
-  }else{
-   const str = name.replace(/([A-Z])/g, "-$1").toLowerCase()
-   return str.indexOf("-") === firstIndex ? str.substr(deleteCount) : str
+  } else {
+    const str = name.replace(/([A-Z])/g, '-$1').toLowerCase()
+    return str.indexOf('-') === firstIndex ? str.substr(deleteCount) : str
   }
 
 }
@@ -20,14 +20,14 @@ export const formatComponentName = (name: string) => {
  * @param {*} num 参数数字
  */
 export const toThousands = (num: number) => {
-  return num.toString().replace(/(\d)(?=(?:\d{3})+$)/g, "$1,")
+  return num.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
 }
 
 /**
  * 日期格式化
  * @param {*} num 参数数字
  */
-export const time = (val = new Date(), format = "yy-mm-dd h:m:s") => {
+export const time = (val = new Date(), format = 'yy-mm-dd h:m:s') => {
   let date = val
   if (!date) {
     date = new Date()
@@ -39,12 +39,12 @@ export const time = (val = new Date(), format = "yy-mm-dd h:m:s") => {
   const M: any = date.getMinutes()
   const S: any = date.getSeconds()
   return format
-    .replace("yy", y)
-    .replace("mm", m >= 10 ? m : `0${m}`)
-    .replace("dd", d >= 10 ? d : `0${d}`)
-    .replace("h", H >= 10 ? H : `0${H}`)
-    .replace("m", M >= 10 ? M : `0${M}`)
-    .replace("s", S >= 10 ? S : `0${S}`)
+    .replace('yy', y)
+    .replace('mm', m >= 10 ? m : `0${m}`)
+    .replace('dd', d >= 10 ? d : `0${d}`)
+    .replace('h', H >= 10 ? H : `0${H}`)
+    .replace('m', M >= 10 ? M : `0${M}`)
+    .replace('s', S >= 10 ? S : `0${S}`)
 }
 
 /**
@@ -57,7 +57,7 @@ export const time = (val = new Date(), format = "yy-mm-dd h:m:s") => {
 export const Debounce = (fn: Function, t: number) => {
   const delay: number = t || 500
   let timer: any
-  return function() {
+  return function () {
     const args = arguments
     if (timer) {
       clearTimeout(timer)
@@ -79,7 +79,7 @@ export const Throttle = (fn: Function, t: number) => {
   let last: any
   let timer: any
   const interval = t || 500
-  return function() {
+  return function () {
     const args = arguments
     const now = +new Date()
     if (last && now - last < interval) {
