@@ -5,11 +5,7 @@
  */
 <template>
   <div class="chart-box">
-    <div
-      ref="echartCommon"
-      class="chart"
-    >
-    </div>
+    <div ref="echartCommon" class="chart"></div>
   </div>
 </template>
 

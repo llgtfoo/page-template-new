@@ -10,7 +10,7 @@ const importAll = (context) => {
   return map
 }
 
-const req=import.meta.globEager("./*/index.js") //读文件
+const req = import.meta.globEager('./*/index.js') //读文件
 const modules = importAll(req)
 
 const initRoute = [

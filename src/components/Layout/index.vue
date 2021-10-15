@@ -3,7 +3,7 @@
  * @param {type}
  */
 <template>
-  <a-layout style="height:100%">
+  <a-layout style="height: 100%">
     <a-layout-sider
       v-model:collapsed="collapsed"
       :trigger="null"
@@ -16,7 +16,7 @@
         <icon-font
           v-else
           type="icon-feeds-fill"
-          style="color:#fff;fontSize:40px"
+          style="color: #fff; fontsize: 40px"
         ></icon-font>
       </div>
       <a-menu
@@ -31,18 +31,12 @@
         <template v-for="v in menusJson">
           <template v-if="!v.children">
             <a-menu-item :key="v.cnameKey">
-              <icon-font
-                :type="v.icon"
-                v-if="v.icon"
-              />
-              <span>{{v.cname}}</span>
+              <icon-font :type="v.icon" v-if="v.icon" />
+              <span>{{ v.cname }}</span>
             </a-menu-item>
           </template>
           <template v-else>
-            <sub-menu
-              :menuInfo="v"
-              :key="v.cnameKey"
-            />
+            <sub-menu :menuInfo="v" :key="v.cnameKey" />
           </template>
         </template>
       </a-menu>
@@ -51,13 +45,10 @@
       <!-- 导航栏 -->
       <system-nav
         v-model:collapsed="collapsed"
-        :systemName='systemName'
+        :systemName="systemName"
       ></system-nav>
       <!-- 内容区 -->
-      <a-layout-content
-        class="layout-content"
-        :style="{margin: '10px'}"
-      >
+      <a-layout-content class="layout-content" :style="{ margin: '10px' }">
         <router-view></router-view>
       </a-layout-content>
     </a-layout>
@@ -68,8 +59,8 @@ import menusJson from 'mock/menus/index.json'
 import {
   createFromIconfontCN,
 } from '@ant-design/icons-vue'
-import { computed,defineComponent,reactive,toRefs,watch } from 'vue'
-import { useRoute,useRouter } from 'vue-router'
+import { computed, defineComponent, reactive, toRefs, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 //阿里图标库引用
 const IconFont = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_2287282_0cednzk5tnru.js',
@@ -131,7 +122,7 @@ export default defineComponent({
       return route.meta.name
     })
     //监测菜单收缩
-    watch(() => state.collapsed,(newVal) => {
+    watch(() => state.collapsed, (newVal) => {
       if (newVal) {
         // state.openKeys = []
       } else {
@@ -148,7 +139,7 @@ export default defineComponent({
     }
     //点击跳转
     // eslint-disable-next-line no-unused-vars
-    const selectedItem = ({ item,key,keyPath }) => {
+    const selectedItem = ({ item, key, keyPath }) => {
       router.push(key)
     }
 

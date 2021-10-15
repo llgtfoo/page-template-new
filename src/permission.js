@@ -1,6 +1,6 @@
 import router from './router'
 
-const whiteList= ['/login'] // 无需令牌白名单
+const whiteList = ['/login'] // 无需令牌白名单
 
 router.beforeEach(async (to, from, next) => {
 

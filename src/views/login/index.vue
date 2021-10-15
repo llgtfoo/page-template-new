@@ -2,15 +2,12 @@
   <div class="login-wraper">
     <div class="login-form">
       <div class="login-logo">
-        <img :src='logo' />
+        <img :src="logo" />
         <p class="logo-text">系统名称</p>
       </div>
       <div class="login-right-form">
         <a-row style="width: 100%">
-          <a-col
-            :span="4.5"
-            :offset="3"
-          >
+          <a-col :span="4.5" :offset="3">
             <div class="form-title">账号登录</div>
           </a-col>
         </a-row>
@@ -23,10 +20,7 @@
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
         >
-          <a-form-item
-            label="用户名"
-            name="username"
-          >
+          <a-form-item label="用户名" name="username">
             <a-input
               v-model:value="formState.username"
               placeholder="请输入用户名"
@@ -37,10 +31,7 @@
               </template>
             </a-input>
           </a-form-item>
-          <a-form-item
-            label="密码"
-            name="password"
-          >
+          <a-form-item label="密码" name="password">
             <a-input
               v-model:value="formState.password"
               type="password"
@@ -62,12 +53,7 @@
             </a-checkbox>
           </a-form-item>
           <a-form-item :wrapper-col="{ span: 18, offset: 3 }">
-            <a-button
-              type="primary"
-              size=" large"
-              block
-              @click="onSubmit"
-            >
+            <a-button type="primary" size=" large" block @click="onSubmit">
               登录
             </a-button>
           </a-form-item>
@@ -79,11 +65,11 @@
 
 <script setup>
 import logo from '../../assets/svg/logo.svg'
-import { reactive,ref,onMounted,watch } from "vue"
-import { UserOutlined,LockOutlined } from "@ant-design/icons-vue"
-import { useRoute,useRouter } from "vue-router"
-const labelCol = { span: 6,offset: 3 }
-const wrapperCol = { span: 18,offset: 3 }
+import { reactive, ref, onMounted, watch } from "vue"
+import { UserOutlined, LockOutlined } from "@ant-design/icons-vue"
+import { useRoute, useRouter } from "vue-router"
+const labelCol = { span: 6, offset: 3 }
+const wrapperCol = { span: 18, offset: 3 }
 const router = useRouter()
 // eslint-disable-next-line no-unused-vars
 const route = useRoute()
@@ -109,7 +95,7 @@ watch(
 )
 //   // 用户名自定义规则
 // eslint-disable-next-line no-unused-vars
-const validateUsername = async (rule,value) => {
+const validateUsername = async (rule, value) => {
   if (value === "") {
     return Promise.reject("用户名不能为空")
   } else {
@@ -118,7 +104,7 @@ const validateUsername = async (rule,value) => {
 }
 // 密码自定义规则
 // eslint-disable-next-line no-unused-vars
-const validatePassword = async (rule,value) => {
+const validatePassword = async (rule, value) => {
   if (value === "") {
     return Promise.reject("密码不能为空")
   } else {
@@ -127,13 +113,13 @@ const validatePassword = async (rule,value) => {
 }
 //校验规则
 const rules = {
-  username: [{ validator: validateUsername,trigger: "change" }],
-  password: [{ validator: validatePassword,trigger: "change" }],
+  username: [{ validator: validateUsername, trigger: "change" }],
+  password: [{ validator: validatePassword, trigger: "change" }],
 }
 //记住用户名操作
 const onChnage = function (e) {
   if (e.target.checked && formState.username !== "") {
-    localStorage.setItem("username",formState.username)
+    localStorage.setItem("username", formState.username)
   } else {
     localStorage.removeItem("username")
   }
@@ -141,16 +127,16 @@ const onChnage = function (e) {
 //登录
 const onSubmit = function () {
   const root = formRef.value //$refs
-  console.log(root,"root")
+  console.log(root, "root")
   root
     .validate()
     .then(() => {
-      console.log("values",formState)
-      localStorage.setItem("token","llgtfoo")
+      console.log("values", formState)
+      localStorage.setItem("token", "llgtfoo")
       router.push("/home")
     })
     .catch((error) => {
-      console.log("error",error)
+      console.log("error", error)
     })
 }
 </script>
