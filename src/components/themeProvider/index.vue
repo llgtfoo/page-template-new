@@ -3,16 +3,12 @@
  * @param {type}
  */
 <template>
-  <div
-    class="theme-wrapper"
-    :style="`--theme:${theme};`"
-    v-show="themeLoaded"
-  >
+  <div class="theme-wrapper" :style="`--theme:${theme};`" v-show="themeLoaded">
     <slot />
   </div>
 </template>
 
-<script lang='ts'>
+<script>
 import './theme/theme.scss'
 import loadTheme from './script/loadTheme'
 import { defineComponent, ref, watch } from 'vue'

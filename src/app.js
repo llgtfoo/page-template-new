@@ -26,7 +26,7 @@ const app = createApp(App)
   .use(directives)
   .use(utils)
   .use(Antd)
-  //全局挂载
+//全局挂载
 app.config.globalProperties.$http = http
 app.config.globalProperties.$echarts = echarts
 export default app
