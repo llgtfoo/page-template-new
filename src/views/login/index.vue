@@ -19,6 +19,7 @@
           :rules="rules"
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
+          layout="vertical"
         >
           <a-form-item label="用户名" name="username">
             <a-input

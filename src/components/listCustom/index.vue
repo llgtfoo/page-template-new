@@ -4,25 +4,21 @@
  */
 <template>
   <div class="list-custom-list">
-    <a-dropdown
-      placement="topLeft"
-      :trigger="['click']"
-      v-model="visible"
-    >
-      <div @click="e => e.preventDefault()">
+    <a-dropdown placement="topLeft" :trigger="['click']" v-model="visible">
+      <div @click="(e) => e.preventDefault()">
         <UnorderedListOutlined />
-        <span style="margin-left:5px;">列表自定义</span>
+        <span style="margin-left: 5px">列表自定义</span>
       </div>
       <template #overlay>
         <a-menu>
           <a-checkbox
-            v-for="(v,i) in columns"
+            v-for="(v, i) in columns"
             :key="i"
             :checked="v.show"
-            @change="e=>onChange(e,v)"
-            :disabled="v.show&&disabled"
+            @change="(e) => onChange(e, v)"
+            :disabled="v.show && disabled"
           >
-            {{v.title}}
+            {{ v.title }}
           </a-checkbox>
         </a-menu>
       </template>
@@ -35,6 +31,9 @@ import { defineComponent, ref } from 'vue'
 import { UnorderedListOutlined } from '@ant-design/icons-vue'
 export default defineComponent({
   name: 'ListCustom',
+  components: {
+    UnorderedListOutlined,
+  },
   props: {
     columns: {
       type: Array,
@@ -45,12 +44,9 @@ export default defineComponent({
       default: 5,
     }, //最少显示多少项
   },
-  components: {
-    UnorderedListOutlined
-  },
-  setup(props, context) {
-    let visible = ref(false)
-    let disabled = ref(false)
+  setup(props: any, context) {
+    const visible = ref(false)
+    const disabled = ref(false)
     function onChange(e, data) {
       data.show = e.target.checked
       context.emit('changeColumns', props.columns)
@@ -63,9 +59,9 @@ export default defineComponent({
     return {
       visible,
       disabled,
-      onChange
+      onChange,
     }
-  }
+  },
 })
 </script>
 
