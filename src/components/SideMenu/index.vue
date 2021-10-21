@@ -3,47 +3,38 @@
     <a-layout-sider
       v-model:collapsed="collapsed"
       collapsible
+      class="menu-layout"
     >
       <a-menu
         mode="inline"
         theme="dark"
         v-model:openKeys="openKeys"
         v-model:selectedKeys="selectedKeys"
-        :inlineCollapsed="collapsed"
+        :collapsed="collapsed"
         @click="selectedItem"
         @openChange="onOpenChange"
       >
         <template v-for="v in currentMenu">
           <template v-if="!v.children">
             <a-menu-item :key="v.cnameKey">
-              <icon-font
-                :type="v.icon"
-                v-if="v.icon"
-              />
-              <span>{{v.cname}}</span>
+              <icon-font :type="v.icon" v-if="v.icon" />
+              <span>{{ v.cname }}</span>
             </a-menu-item>
           </template>
           <template v-else>
-            <sub-menu
-              :menuInfo="v"
-              :key="v.cnameKey"
-            />
+            <sub-menu :menuInfo="v" :key="v.cnameKey" />
           </template>
         </template>
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-content style="margin:10px;marginTop:0px">
+      <a-layout-content style="margin: 10px; margintop: 0px">
         <a-breadcrumb style="margin: 7px 0px">
-          <a-breadcrumb-item
-            v-for='(v) in breadcrumb'
-            :key='v.path'
-          >{{v.title}}</a-breadcrumb-item>
+          <a-breadcrumb-item v-for="v in breadcrumb" :key="v.path">
+            {{ v.title }}</a-breadcrumb-item
+          >
         </a-breadcrumb>
-        <div
-          class='main'
-          :style="{ }"
-        >
+        <div class="main" :style="{}">
           <router-view></router-view>
         </div>
       </a-layout-content>
@@ -96,8 +87,8 @@ import {
   UserOutlined,
   TeamOutlined,
   FileOutlined,
-} from '@ant-design/icons-vue';
-import { defineComponent, reactive, ref, toRefs, computed, onMounted, watch, watchEffect } from 'vue';
+} from '@ant-design/icons-vue'
+import { defineComponent, reactive, ref, toRefs, computed, onMounted, watch, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 export default defineComponent({
@@ -190,5 +181,20 @@ export default defineComponent({
 }
 /deep/.ant-layout-sider-trigger {
   background: var(--header-top-bg-color);
+}
+/deep/.iconfont {
+  margin-right: 5px;
+  width: 24px;
+  text-align: center;
+  font-size: 24px;
+  vertical-align: middle;
+  display: inline-block;
+}
+</style>
+<style>
+.menu-layout .anticon {
+  margin-right: 6px !important;
+  font-size: 20px !important;
+  vertical-align: -0.185em !important;
 }
 </style>
