@@ -31,6 +31,9 @@ import { defineComponent, ref } from 'vue'
 import { UnorderedListOutlined } from '@ant-design/icons-vue'
 export default defineComponent({
   name: 'ListCustom',
+  components: {
+    UnorderedListOutlined,
+  },
   props: {
     columns: {
       type: Array,
@@ -41,10 +44,7 @@ export default defineComponent({
       default: 5,
     }, //最少显示多少项
   },
-  components: {
-    UnorderedListOutlined
-  },
-  setup(props, context) {
+  setup(props: any, context) {
     let visible = ref(false)
     let disabled = ref(false)
     function onChange(e, data) {

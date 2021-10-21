@@ -15,7 +15,12 @@
       @on-show-size-change="showSizeChange"
     >
       <template #action="text">
-        <a-button type="danger" value="small" @click.stop="action(text)">
+        <a-button
+          type="primary"
+          danger
+          value="small"
+          @click.stop="action(text)"
+        >
           删除
         </a-button>
         <a-button type="primary" value="small" @click.stop="action(text)">
