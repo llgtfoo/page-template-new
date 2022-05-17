@@ -7,10 +7,7 @@
       </div>
       <div class="login-right-form">
         <a-row style="width: 100%">
-          <a-col
-            :span="4.5"
-            :offset="3"
-          >
+          <a-col :span="4.5" :offset="3">
             <div class="form-title">账号登录</div>
           </a-col>
         </a-row>
@@ -22,11 +19,9 @@
           :rules="rules"
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
+          layout="vertical"
         >
-          <a-form-item
-            label="用户名"
-            name="username"
-          >
+          <a-form-item label="用户名" name="username">
             <a-input
               v-model:value="formState.username"
               placeholder="请输入用户名"
@@ -37,10 +32,7 @@
               </template>
             </a-input>
           </a-form-item>
-          <a-form-item
-            label="密码"
-            name="password"
-          >
+          <a-form-item label="密码" name="password">
             <a-input
               v-model:value="formState.password"
               type="password"
@@ -53,7 +45,7 @@
           </a-form-item>
           <a-form-item name="type">
             <a-checkbox
-              :disabled="formState.username===''"
+              :disabled="formState.username === ''"
               @change="onChnage"
               v-model:checked="formState.checked"
               style="color: #fff"
@@ -62,12 +54,7 @@
             </a-checkbox>
           </a-form-item>
           <a-form-item :wrapper-col="{ span: 18, offset: 3 }">
-            <a-button
-              type="primary"
-              size=" large"
-              block
-              @click="onSubmit"
-            >
+            <a-button type="primary" size=" large" block @click="onSubmit">
               登录
             </a-button>
           </a-form-item>
@@ -82,9 +69,9 @@ import { Options, Vue } from 'vue-class-component'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
 interface FormState {
-  username: string;
-  password: string;
-  checked: boolean;
+  username: string
+  password: string
+  checked: boolean
 }
 @Options({
   components: {
