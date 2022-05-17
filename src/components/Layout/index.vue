@@ -25,7 +25,7 @@
         theme="dark"
         v-model:openKeys="openKeys"
         v-model:selectedKeys="selectedKeys"
-        :inlineCollapsed="collapsed"
+        :collapsed="collapsed"
         @click="selectedItem"
         @openChange="onOpenChange"
       >
